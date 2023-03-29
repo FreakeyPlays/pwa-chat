@@ -1,0 +1,36 @@
+{
+  "short_name": "PWA Chat",
+  "name": "PWA Chat: Chat with your Friends",
+  "icons": [
+    {
+      "src": "assets/images/icons/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/images/icons/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/images/icons/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/images/icons/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": "/index.html",
+  "id": "/index.html",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "theme_color": "#002d57",
+  "description": "A PWA Chat Application to chat with people at HS-Esslingen."
+}

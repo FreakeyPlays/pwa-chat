@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES6",
+    "sourceMap": true,
+    "outDir": "src/assets/dist/js",
+  },
+  "include": [
+    "src/assets/ts/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "pwa-app",
+  "version": "1.0.0",
+  "description": "A PWA Chat Application to chat with people at HS-Esslingen",
+  "license": "MIT",
+  "author": "Christoph Merck",
+  "type": "module",
+  "scripts": {
+    "ts-dev": "tsc --watch",
+    "ts-build": "tsc",
+    "sass-dev": "sass --watch src/assets/sass:src/assets/dist/css",
+    "sass-build": "sass src/assets/sass/main.sass src/assets/dist/css/main.css",
+    "start": "concurrently \"npx http-server ./src\" \"npm run ts-dev\" \"npm run sass-dev\"",
+    "build": "npm run ts-build && npm run sass-build"
+  },
+  "devDependencies": {
+    "concurrently": "8.0.1",
+    "eslint-config-prettier": "8.8.0",
+    "prettier": "2.8.7",
+    "sass": "1.60.0",
+    "typescript": "5.0.2"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "root": true,
+  "extends": "prettier",
+  "env": {
+    "es6": true
+  },
+  "rules": {
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ]
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  }
+}
