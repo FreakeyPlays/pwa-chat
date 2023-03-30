@@ -1,9 +1,10 @@
 const cacheName = 'pwa-chat-v1';
+const filesToCache = ['/', '/index.html', '/manifest.webmanifest'];
 
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(cacheName).then(cache => {
-      return cache.addAll(['/', '/index.html', '/manifest.webmanifest']);
+      return cache.addAll(filesToCache);
     })
   );
 });
