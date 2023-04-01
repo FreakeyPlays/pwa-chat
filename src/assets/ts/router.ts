@@ -1,3 +1,5 @@
+import { route } from './_interface/route.interface.js';
+
 declare global {
   interface Window {
     route: Function;
@@ -5,7 +7,7 @@ declare global {
 }
 
 export class Router {
-  private routes = {
+  private routes: Object = {
     404: {
       path: '/assets/pages/404.html',
       title: '404',
@@ -31,7 +33,7 @@ export class Router {
       loginRequired: false
     }
   };
-  private loggedIn = true;
+  private loggedIn: boolean = true;
 
   constructor() {
     window.onpopstate = () => this.handleLocation;
@@ -40,7 +42,7 @@ export class Router {
     this.handleLocation();
   }
 
-  public route(event) {
+  public route(event): void {
     event = event || window.event;
     event.preventDefault();
     window.history.pushState({}, '', event.target.href);
@@ -48,13 +50,18 @@ export class Router {
   }
 
   public async handleLocation() {
-    const path = window.location.pathname;
-    const route =
-      (!this.routes[path].loginRequired || this.loggedIn
-        ? this.routes[path]
+    const path: string = window.location.pathname;
+    const currentRoute: route =
+      (!this.routes[path]?.loginRequired || this.loggedIn
+        ? this.routes[path] || this.routes[404]
         : this.routes['/login']) || this.routes[404];
-    const html = await fetch(route.path).then(data => data.text());
-    document.body.innerHTML = html;
-    document.title = route.title + ' | PWA Chat';
+    const html: string = await fetch(currentRoute.path).then(data =>
+      data.text()
+    );
+    document.title = currentRoute.title + ' | PWA Chat';
+    document
+      .querySelector('meta[name="description"]')
+      .setAttribute('content', currentRoute.description);
+    document.getElementById('content').innerHTML = html;
   }
 }
