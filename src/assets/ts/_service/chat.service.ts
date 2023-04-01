@@ -5,11 +5,21 @@ export class ChatService {
   private url: string = 'https://www2.hs-esslingen.de/~melcher/map/chat/api/?';
   private token: string = null;
 
-  private async httpRequest<T>(params?: URLSearchParams | string): Promise<T> {
-    const response = await fetch(this.url + params);
+  private async httpRequest<T>(
+    params?: URLSearchParams | string,
+    method: string = 'GET'
+  ): Promise<T> {
+    const response = await fetch(this.url + params, {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
     if (!response.ok) {
       throw new Error(response.statusText);
     }
+
     return await response.json();
   }
 
