@@ -171,8 +171,8 @@
 
     <link rel="stylesheet" type="text/css" href="assets/dist/css/main.css" />
     <link rel="manifest" href="manifest.webmanifest" />
-    <script src="assets/dist/js/main.js" type="module"></script>
-    <script>
+    <script src="assets/dist/js/main.js" type="module" defer></script>
+    <script defer>
       if (navigator.serviceWorker) {
         navigator.serviceWorker.register('./sw.js').then(() => {
           console.log('Service Worker Registered');
@@ -180,13 +180,5 @@
       }
     </script>
   </head>
-  <body>
-    <nav id="main-nav" class="sidebar">
-      <a href="/" onclick="route()">Chat</a>
-      <a href="/login" onclick="route()">Login</a>
-      <a href="/register" onclick="route()">Register</a>
-      <a href="/test" onclick="route()">test</a>
-    </nav>
-    <div id="content"></div>
-  </body>
+  <body></body>
 </html>

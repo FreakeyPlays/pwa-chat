@@ -33,7 +33,7 @@ export class Router {
       loginRequired: false
     }
   };
-  private loggedIn: boolean = true;
+  private loggedIn: boolean = false;
 
   constructor() {
     window.onpopstate = () => this.handleLocation;
@@ -62,6 +62,6 @@ export class Router {
     document
       .querySelector('meta[name="description"]')
       .setAttribute('content', currentRoute.description);
-    document.getElementById('content').innerHTML = html;
+    document.body.innerHTML = html;
   }
 }
