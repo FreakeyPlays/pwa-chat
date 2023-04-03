@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "target": "ES6",
+    "target": "esnext",
     "sourceMap": true,
     "outDir": "src/assets/dist/js",
   },
