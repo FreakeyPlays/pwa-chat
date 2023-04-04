@@ -1,41 +1,75 @@
 <h1>Register</h1>
 <div class="ui-header">
-  <a href="/login" onclick="route()">Back</a>
+  <a href="/chat" onclick="route()">Back</a>
 </div>
 <div class="ui-card-center">
-  <form>
-    <h3>Register</h3>
+  <form id="form" data-form-id="signup">
+    <h3>Sign up Here</h3>
 
-    <label for="input-username" class="input">
-      <input type="text" id="input-username" placeholder="&nbsp;" />
-      <span class="label">Username</span>
-      <span class="focus-bg"></span>
-    </label>
+    <div class="input-group" data-form-field="userid">
+      <input
+        type="text"
+        id="userid"
+        name="userid"
+        class="input"
+        autocomplete="off"
+        placeholder=" "
+      />
+      <label for="userid" class="input-label">Username</label>
+      <span class="error-message"></span>
+    </div>
 
-    <label for="input-password" class="input">
-      <input type="password" id="input-password" placeholder="&nbsp;" />
-      <span class="label">Password</span>
-      <span class="focus-bg"></span>
-    </label>
+    <div class="input-group" data-form-field="password">
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="input"
+        autocomplete="off"
+        placeholder=" "
+      />
+      <label for="password" class="input-label">Password</label>
+      <span class="error-message"></span>
+    </div>
 
-    <label for="input-password-check" class="input">
-      <input type="password" id="input-password-check" placeholder="&nbsp;" />
-      <span class="label">Password</span>
-      <span class="focus-bg"></span>
-    </label>
+    <div class="input-group" data-form-field="passwordConfirm">
+      <input
+        type="password"
+        id="passwordConfirm"
+        class="input"
+        autocomplete="off"
+        placeholder=" "
+      />
+      <label for="passwordConfirm" class="input-label">Confirm Password</label>
+      <span class="error-message"></span>
+    </div>
 
-    <label for="input-nickname" class="input">
-      <input type="text" id="input-nickname" placeholder="&nbsp;" />
-      <span class="label">Nickname</span>
-      <span class="focus-bg"></span>
-    </label>
+    <div class="input-group" data-form-field="nickname">
+      <input
+        type="text"
+        id="nickname"
+        name="nickname"
+        class="input"
+        autocomplete="off"
+        placeholder=" "
+      />
+      <label for="nickname" class="input-label">Nickname</label>
+      <span class="error-message"></span>
+    </div>
 
-    <label for="input-fullname" class="input">
-      <input type="text" id="input-fullname" placeholder="&nbsp;" />
-      <span class="label">Full Name</span>
-      <span class="focus-bg"></span>
-    </label>
+    <div class="input-group" data-form-field="fullname">
+      <input
+        type="text"
+        id="fullname"
+        name="fullname"
+        class="input"
+        autocomplete="off"
+        placeholder=" "
+      />
+      <label for="fullname" class="input-label">Full Name</label>
+      <span class="error-message"></span>
+    </div>
 
-    <button>Register</button>
+    <button id="form-submit" type="submit">Sign up</button>
   </form>
 </div>

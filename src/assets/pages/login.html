@@ -1,34 +1,44 @@
 <!-- 
-ttps://freefrontend.com/css-login-forms/#:~:text=GLASSMORPHISM%20LOGIN%20FORM 
+https://freefrontend.com/css-login-forms/#:~:text=GLASSMORPHISM%20LOGIN%20FORM 
 https://codepen.io/avstorm/pen/gKGbxo
 -->
 <div class="ui-card-center">
-  <form>
+  <form id="form" data-form-id="login" action="/chat">
     <h3>Login Here</h3>
 
-    <label for="input-username" class="input">
-      <input type="text" id="input-username" placeholder="&nbsp;" required />
-      <span class="label">Username</span>
-      <span class="focus-bg"></span>
-    </label>
+    <div class="input-group" data-form-field="userid">
+      <input
+        type="text"
+        id="userid"
+        name="userid"
+        class="input"
+        autocomplete="off"
+        placeholder=" "
+        value="chmeit02"
+      />
+      <label for="userid" class="input-label">Username</label>
+      <span class="error-message"></span>
+    </div>
 
-    <label for="input-password" class="input">
+    <div class="input-group" data-form-field="password">
       <input
         type="password"
-        id="input-password"
-        placeholder="&nbsp;"
-        required
+        id="password"
+        name="password"
+        class="input"
+        autocomplete="off"
+        placeholder=" "
+        value="Password1"
       />
-      <span class="label">Password</span>
-      <span class="focus-bg"></span>
-    </label>
+      <label for="password" class="input-label">Password</label>
+      <span class="error-message"></span>
+    </div>
 
-    <button>Log In</button>
-
-    <p>
-      <span>
-        Not a member? <a href="/register" onclick="route()">Sign up</a>
-      </span>
-    </p>
+    <button id="form-submit" type="submit">Log In</button>
   </form>
+  <p>
+    <span>
+      Not a member? <a href="/register" onclick="route()">Sign up</a>
+    </span>
+  </p>
 </div>
