@@ -17,25 +17,25 @@ const filesToCache = [
   '/assets/dist/js/_interface/route.interface.js'
 ];
 
-self.addEventListener('install', installEvent => {
-  installEvent.waitUntil(
+self.addEventListener('install', iEvent => {
+  iEvent.waitUntil(
     caches.open(cacheName).then(cache => {
       cache.addAll(filesToCache);
     })
   );
 });
 
-self.addEventListener('fetch', e => {
-  e.respondWith(
+self.addEventListener('fetch', fEvent => {
+  fEvent.respondWith(
     caches.open(cacheName).then(cache => {
-      return fetch(e.request.url)
+      return fetch(fEvent.request.url)
         .then(fetchedResponse => {
-          cache.put(e.request.url, fetchedResponse.clone());
+          cache.put(fEvent.request.url, fetchedResponse.clone());
 
           return fetchedResponse;
         })
         .catch(() => {
-          return cache.match(e.request.url);
+          return cache.match(fEvent.request.url);
         });
     })
   );
