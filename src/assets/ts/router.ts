@@ -1,8 +1,10 @@
 import { route } from './_interface/route.interface.js';
+import { Auth } from './auth.js';
 
 declare global {
   interface Window {
     route: Function;
+    navigateTo: Function;
   }
 }
 
@@ -33,12 +35,22 @@ export class Router {
       loginRequired: false
     }
   };
-  private loggedIn: boolean = false;
+  private spaContentLoadedEvent: Event;
+  private auth: Auth;
 
   constructor() {
+    this.auth = Auth.getInstance();
+    this.spaContentLoadedEvent = new Event('spaContentLoaded');
+
     window.onpopstate = () => this.handleLocation;
     window.route = e => this.route(e);
+    window.navigateTo = url => this.navigateTo(url);
 
+    this.handleLocation();
+  }
+
+  public navigateTo(url: string): void {
+    window.history.pushState({}, '', url);
     this.handleLocation();
   }
 
@@ -52,9 +64,10 @@ export class Router {
   public async handleLocation() {
     const path: string = window.location.pathname;
     const currentRoute: route =
-      (!this.routes[path]?.loginRequired || this.loggedIn
+      (!this.routes[path]?.loginRequired || this.auth.getActiveUser() != null
         ? this.routes[path] || this.routes[404]
         : this.routes['/login']) || this.routes[404];
+
     const html: string = await fetch(currentRoute.path).then(data =>
       data.text()
     );
@@ -63,5 +76,7 @@ export class Router {
       .querySelector('meta[name="description"]')
       .setAttribute('content', currentRoute.description);
     document.body.innerHTML = html;
+
+    document.body.dispatchEvent(this.spaContentLoadedEvent);
   }
 }
