@@ -16,11 +16,13 @@ export class ApiService {
     });
 
     if (!response.ok) {
-      throw new Error(response.statusText);
+      throw response;
     }
 
     return await response.json();
   }
+
+  constructor() {}
 
   public async registerUser(user: user): Promise<response> {
     const params = new URLSearchParams({
@@ -34,7 +36,6 @@ export class ApiService {
     try {
       return await this.httpRequest<response>(params);
     } catch (error: unknown) {
-      console.error(error.toString());
       throw error;
     }
   }
@@ -64,7 +65,6 @@ export class ApiService {
     try {
       return await this.httpRequest<response>(params);
     } catch (error: unknown) {
-      console.error(error.toString());
       throw error;
     }
   }
