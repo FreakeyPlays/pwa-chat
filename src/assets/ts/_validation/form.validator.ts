@@ -5,7 +5,7 @@ export class formValidator {
   private inputs: Object = {
     userid: {
       regex: /^[a-zA-Z0-9]{8}$/,
-      errorCodes: [454],
+      errorCodes: [451, 454],
       errorMessage:
         'Username must be 8 characters long and can only contain letters and numbers (HSE ID).'
     },
