@@ -34,7 +34,7 @@ export class formValidator {
 
   public setup(form: HTMLElement) {
     const inputGroups: NodeListOf<HTMLElement> =
-      form.querySelectorAll('.input-group');
+      form.querySelectorAll('.form__group');
 
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -94,7 +94,7 @@ export class formValidator {
   }
 
   public validateInput(field: HTMLElement, settings: Object) {
-    const inputElement: HTMLInputElement = field.querySelector('.input');
+    const inputElement: HTMLInputElement = field.querySelector('input');
     const inputValue: string = inputElement.value;
 
     if (settings['regex'] && inputValue.match(settings['regex'])) {

@@ -1,42 +1,42 @@
-<!-- 
-https://freefrontend.com/css-login-forms/#:~:text=GLASSMORPHISM%20LOGIN%20FORM 
-https://codepen.io/avstorm/pen/gKGbxo
--->
-<div class="ui-card-center">
-  <form id="form" data-form-id="login" action="/chat">
-    <h3>Login Here</h3>
+<div class="test">
+  <form id="form" class="form" data-form-id="login" action="/chat">
+    <h3 class="form__title">Sign in</h3>
 
-    <div class="input-group" data-form-field="userid">
+    <div class="form__group" data-form-field="userid">
       <input
         type="text"
         id="userid"
         name="userid"
-        class="input"
+        class="form__group__input"
         autocomplete="off"
         placeholder=" "
       />
-      <label for="userid" class="input-label">Username</label>
-      <span class="error-message"></span>
+      <label for="userid" class="form__group__label">Username</label>
+      <div class="error-message form__group__error"></div>
     </div>
 
-    <div class="input-group" data-form-field="password">
+    <div class="form__group" data-form-field="password">
       <input
         type="password"
         id="password"
         name="password"
-        class="input"
+        class="form__group__input"
         autocomplete="off"
         placeholder=" "
       />
-      <label for="password" class="input-label">Password</label>
-      <span class="error-message"></span>
+      <label for="password" class="form__group__label">Password</label>
+      <div class="error-message form__group__error"></div>
     </div>
 
-    <button id="form-submit" type="submit">Log In</button>
+    <div class="form__end">
+      <button
+        class="form__end__button"
+        onclick="navigateTo('/register')"
+        type="button"
+      >
+        Sign up
+      </button>
+      <button class="form__end__button" type="submit">Sign in</button>
+    </div>
   </form>
-  <p>
-    <span>
-      Not a member? <a href="/register" onclick="route()">Sign up</a>
-    </span>
-  </p>
 </div>

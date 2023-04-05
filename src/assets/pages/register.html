@@ -1,75 +1,82 @@
-<h1>Register</h1>
-<div class="ui-header">
-  <a href="/login" onclick="route()">Back</a>
-</div>
-<div class="ui-card-center">
-  <form id="form" data-form-id="signup">
-    <h3>Sign up Here</h3>
+<div class="test">
+  <form id="form" class="form" data-form-id="signup">
+    <h3 class="form__title">Sign up</h3>
 
-    <div class="input-group" data-form-field="userid">
+    <div class="form__group" data-form-field="userid">
       <input
         type="text"
         id="userid"
         name="userid"
-        class="input"
+        class="form__group__input"
         autocomplete="off"
         placeholder=" "
       />
-      <label for="userid" class="input-label">Username</label>
-      <span class="error-message"></span>
+      <label for="userid" class="form__group__label">Username</label>
+      <div class="error-message form__group__error"></div>
     </div>
 
-    <div class="input-group" data-form-field="password">
+    <div class="form__group" data-form-field="password">
       <input
         type="password"
         id="password"
         name="password"
-        class="input"
+        class="form__group__input"
         autocomplete="off"
         placeholder=" "
       />
-      <label for="password" class="input-label">Password</label>
-      <span class="error-message"></span>
+      <label for="password" class="form__group__label">Password</label>
+      <div class="error-message form__group__error"></div>
     </div>
 
-    <div class="input-group" data-form-field="passwordConfirm">
+    <div class="form__group" data-form-field="passwordConfirm">
       <input
         type="password"
         id="passwordConfirm"
-        class="input"
+        class="form__group__input"
         autocomplete="off"
         placeholder=" "
       />
-      <label for="passwordConfirm" class="input-label">Confirm Password</label>
-      <span class="error-message"></span>
+      <label for="passwordConfirm" class="form__group__label"
+        >Confirm Password</label
+      >
+      <div class="error-message form__group__error"></div>
     </div>
 
-    <div class="input-group" data-form-field="nickname">
+    <div class="form__group" data-form-field="nickname">
       <input
         type="text"
         id="nickname"
         name="nickname"
-        class="input"
+        class="form__group__input"
         autocomplete="off"
         placeholder=" "
       />
-      <label for="nickname" class="input-label">Nickname</label>
-      <span class="error-message"></span>
+      <label for="nickname" class="form__group__label">Nickname</label>
+      <div class="error-message form__group__error"></div>
     </div>
 
-    <div class="input-group" data-form-field="fullname">
+    <div class="form__group" data-form-field="fullname">
       <input
         type="text"
         id="fullname"
         name="fullname"
-        class="input"
+        class="form__group__input"
         autocomplete="off"
         placeholder=" "
       />
-      <label for="fullname" class="input-label">Full Name</label>
-      <span class="error-message"></span>
+      <label for="fullname" class="form__group__label">Full Name</label>
+      <div class="error-message form__group__error"></div>
     </div>
 
-    <button id="form-submit" type="submit">Sign up</button>
+    <div class="form__end">
+      <button
+        class="form__end__button"
+        onclick="navigateTo('/login')"
+        type="button"
+      >
+        Sign in
+      </button>
+      <button class="form__end__button" type="submit">Sign up</button>
+    </div>
   </form>
 </div>
