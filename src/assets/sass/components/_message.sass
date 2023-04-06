@@ -1,0 +1,29 @@
+@use '../abstracts/variables' as *
+
+.message
+  background-color: $clr-primary
+  box-shadow: 0 0 2rem rgba(black, 0.075), 0rem 1rem 1rem -1rem rgba(black, 0.1)
+  padding: 12px
+  margin-bottom: 18px
+  max-width: 66%
+  width: fit-content
+  border-radius: 1.125rem 1.125rem 1.125rem 0
+
+  &__title
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: flex-end
+    gap: 12px
+
+  &:last-child
+    margin-bottom: 0 
+
+.myself
+  background-color: $clr-highlight
+  margin: 0 0 0 auto
+  margin-bottom: 18px
+  border-radius: 1.125rem 1.125rem 0 1.125rem
+
+  .message__content
+    text-align: end

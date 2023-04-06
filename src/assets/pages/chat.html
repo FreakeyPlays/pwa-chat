@@ -1,1 +1,23 @@
-<h1>Chat</h1>
+<div class="chat">
+  <div class="header">
+    <a class="header__back" href="/logout" onclick="route()">
+      <img src="/assets/images/icons/logout.svg" />
+    </a>
+    <div class="header__container">
+      <h1 class="header__container__title">Chat</h1>
+      <div class="header__container__nav"></div>
+    </div>
+  </div>
+  <div class="chat__window"></div>
+  <div class="chat__input">
+    <form>
+      <textarea
+        placeholder="Type a Message..."
+        class="chat__input__text"
+        rows="1"
+        type="text"
+      ></textarea>
+      <button class="chat__input__send" type="submit">Send</button>
+    </form>
+  </div>
+</div>
