@@ -1,6 +1,7 @@
 export interface message {
   id: number;
-  user: string;
+  userhash: string;
+  usernickname: string;
   text: string;
   time: string;
   chatid: number;
