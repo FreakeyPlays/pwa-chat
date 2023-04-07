@@ -7,14 +7,18 @@ const filesToCache = [
   '/assets/pages/login.html',
   '/assets/pages/register.html',
   '/assets/pages/404.html',
+  '/assets/dist/components/message.html',
   '/assets/dist/css/main.css',
   '/assets/dist/js/main.js',
   '/assets/dist/js/router.js',
-  '/assets/dist/js/_service/chat.service.js',
+  '/assets/dist/js/auth.js',
+  '/assets/dist/js/_validation/form.validator.js',
+  '/assets/dist/js/_service/api.service.js',
   '/assets/dist/js/_service/storage.service.js',
   '/assets/dist/js/_interface/response.interface.js',
   '/assets/dist/js/_interface/user.interface.js',
-  '/assets/dist/js/_interface/route.interface.js'
+  '/assets/dist/js/_interface/route.interface.js',
+  '/assets/dist/js/_interface/message.interface.js'
 ];
 
 self.addEventListener('install', iEvent => {
