@@ -87,7 +87,7 @@ export class ApiService {
     const params = new URLSearchParams({
       request: 'sendmessage',
       token: token,
-      message: message
+      text: message
     });
 
     try {

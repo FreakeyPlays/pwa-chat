@@ -1,15 +1,18 @@
 import { formValidator } from './_validation/form.validator.js';
+import { Chat } from './chat.js';
 import { Router } from './router.js';
 
 class App {
   private _router: Router;
   private validator: formValidator;
+  private chat: Chat;
 
   private state: string;
 
   constructor() {
     this._router = new Router();
     this.validator = new formValidator();
+    this.chat = new Chat();
 
     this.state = '';
 
@@ -35,6 +38,7 @@ class App {
         this.validator.setup(firstElement.querySelector('.form'), this.state);
         break;
       case 'chat':
+        this.chat.init();
         break;
       case '404':
         break;

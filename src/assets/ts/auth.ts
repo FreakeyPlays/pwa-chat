@@ -34,7 +34,12 @@ export class Auth {
         throw err;
       });
   }
-  public logout(token: string) {}
+
+  public logout() {
+    this.activeUser = null;
+    window.navigateTo('/');
+  }
+
   public register(user: user): Promise<response> {
     return this._apiService
       .registerUser(user)
