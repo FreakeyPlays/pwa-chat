@@ -30,16 +30,22 @@ self.addEventListener('install', iEvent => {
 });
 
 self.addEventListener('fetch', fEvent => {
+  if (
+    url.startsWith('chrome-extension') ||
+    url.includes('extension') ||
+    !(url.indexOf('http') === 0)
+  )
+    return;
   fEvent.respondWith(
     caches.open(cacheName).then(cache => {
-      return fetch(fEvent.request.url)
+      return fetch(url)
         .then(fetchedResponse => {
-          cache.put(fEvent.request.url, fetchedResponse.clone());
+          cache.put(url, fetchedResponse.clone());
 
           return fetchedResponse;
         })
         .catch(() => {
-          return cache.match(fEvent.request.url);
+          return cache.match(url);
         });
     })
   );
