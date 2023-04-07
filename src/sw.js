@@ -1,4 +1,4 @@
-const cacheName = 'pwa-chat-v1';
+const cacheName = 'pwa-chat-v2';
 const filesToCache = [
   '/',
   '/index.html',
@@ -25,6 +25,20 @@ self.addEventListener('install', iEvent => {
   iEvent.waitUntil(
     caches.open(cacheName).then(cache => {
       cache.addAll(filesToCache);
+    })
+  );
+});
+
+self.addEventListener('activate', aEvent => {
+  aEvent.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cName => {
+          if (cName !== cacheName) {
+            return caches.delete(cName);
+          }
+        })
+      );
     })
   );
 });
