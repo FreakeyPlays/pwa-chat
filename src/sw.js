@@ -31,21 +31,21 @@ self.addEventListener('install', iEvent => {
 
 self.addEventListener('fetch', fEvent => {
   if (
-    url.startsWith('chrome-extension') ||
-    url.includes('extension') ||
-    !(url.indexOf('http') === 0)
+    fEvent.request.url.startsWith('chrome-extension') ||
+    fEvent.request.url.includes('extension') ||
+    !(fEvent.request.url.indexOf('http') === 0)
   )
     return;
   fEvent.respondWith(
     caches.open(cacheName).then(cache => {
-      return fetch(url)
+      return fetch(fEvent.request.url)
         .then(fetchedResponse => {
-          cache.put(url, fetchedResponse.clone());
+          cache.put(fEvent.request.url, fetchedResponse.clone());
 
           return fetchedResponse;
         })
         .catch(() => {
-          return cache.match(url);
+          return cache.match(fEvent.request.url);
         });
     })
   );
