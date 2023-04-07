@@ -32,7 +32,7 @@ export class formValidator {
 
   constructor() {}
 
-  public setup(form: HTMLElement) {
+  public setup(form: HTMLElement, state) {
     const inputGroups: NodeListOf<HTMLElement> =
       form.querySelectorAll('.form__group');
 
@@ -57,7 +57,7 @@ export class formValidator {
         userObj[pair[0]] = pair[1];
       }
 
-      switch (form.dataset.formId) {
+      switch (state) {
         case 'login':
           this._auth
             .login(userObj)
