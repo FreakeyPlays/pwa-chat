@@ -7,7 +7,7 @@ const filesToCache = [
   '/assets/pages/login.html',
   '/assets/pages/register.html',
   '/assets/pages/404.html',
-  '/assets/dist/components/message.html',
+  '/assets/components/message.html',
   '/assets/dist/css/main.css',
   '/assets/dist/js/main.js',
   '/assets/dist/js/router.js',
