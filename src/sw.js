@@ -47,9 +47,11 @@ self.addEventListener('fetch', fEvent => {
   if (
     fEvent.request.url.startsWith('chrome-extension') ||
     fEvent.request.url.includes('extension') ||
-    !(fEvent.request.url.indexOf('http') === 0)
+    !(fEvent.request.url.indexOf('http') === 0) ||
+    fEvent.request.url.indexOf('www2.hs-esslingen.de')
   )
     return;
+
   fEvent.respondWith(
     caches.open(cacheName).then(cache => {
       return fetch(fEvent.request.url)
