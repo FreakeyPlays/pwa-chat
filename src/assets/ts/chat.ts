@@ -34,6 +34,11 @@ export class Chat {
 
   public init() {
     this.fetchMessages();
+    document.getElementById('chat__input').addEventListener('keydown', e => {
+      if (e.key == 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+      }
+    });
     document.getElementById('chat__input').addEventListener('submit', e => {
       e.preventDefault();
       this.sendMessage(
