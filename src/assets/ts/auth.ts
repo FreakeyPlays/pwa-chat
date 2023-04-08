@@ -37,7 +37,6 @@ export class Auth {
 
   public logout() {
     this.activeUser = null;
-    window.navigateTo('/');
   }
 
   public register(user: user): Promise<response> {
