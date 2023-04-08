@@ -1,6 +1,6 @@
 {
   "short_name": "PWA Chat",
-  "name": "PWA Chat: Chat with your Friends",
+  "name": "PWA Chat",
   "icons": [
     {
       "src": "assets/images/icons/manifest-icon-192.maskable.png",
@@ -29,8 +29,8 @@
   ],
   "start_url": "/",
   "id": "/",
-  "background_color": "#FFFFFF",
+  "background_color": "#F7F7F7",
   "display": "standalone",
-  "theme_color": "#002d57",
+  "theme_color": "#8b9e70",
   "description": "A PWA Chat Application to chat with people at HS-Esslingen."
 }
