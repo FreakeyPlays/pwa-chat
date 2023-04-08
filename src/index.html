@@ -11,21 +11,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <!-- Icons -->
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="assets/images/icons/favicon.ico"
-    />
-    <link
-      rel="apple-touch-icon"
-      href="assets/images/icons/apple-icon-180.png"
-    />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="apple-touch-icon" href="assets/images/apple-icon-180.png" />
 
     <!-- Imports -->
     <title>PWA Chat</title>
-    <link rel="stylesheet" type="text/css" href="assets/dist/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="dist/main.css" />
     <link rel="manifest" href="manifest.webmanifest" />
-    <script src="assets/dist/js/main.js" type="module" defer></script>
+    <script src="dist/main.js" type="module" defer></script>
     <script defer>
       if (navigator.serviceWorker) {
         navigator.serviceWorker.register('./sw.js').then(() => {

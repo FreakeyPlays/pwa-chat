@@ -11,25 +11,25 @@ declare global {
 export class Router {
   private routes: Object = {
     404: {
-      path: '/assets/pages/404.html',
+      path: '/pages/404.html',
       title: '404',
       description: "The page you're looking for doesn't exist",
       loginRequired: false
     },
     '/': {
-      path: '/assets/pages/chat.html',
+      path: '/pages/chat.html',
       title: 'Chat',
       description: 'Chat with your friends',
       loginRequired: true
     },
     '/login': {
-      path: '/assets/pages/login.html',
+      path: '/pages/login.html',
       title: 'Login',
       description: 'Login to your account',
       loginRequired: false
     },
     '/register': {
-      path: '/assets/pages/register.html',
+      path: '/pages/register.html',
       title: 'Register',
       description: 'Register a new account',
       loginRequired: false

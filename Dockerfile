@@ -17,4 +17,4 @@ WORKDIR /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 COPY --from=builder /usr/src/app/src /usr/share/nginx/html
-RUN ["rm", "-rf", "assets/sass", "assets/ts"]
+RUN ["rm", "-rf", "/sass", "/ts"]

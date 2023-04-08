@@ -5,7 +5,7 @@ import { Auth } from './auth.js';
 export class Chat {
   private _apiService: ApiService;
   private _auth: Auth;
-  private pathMessageHtml: string = '/assets/components/message.html';
+  private pathMessageHtml: string = '/components/message.html';
   private messageHtml: HTMLElement;
 
   constructor() {
