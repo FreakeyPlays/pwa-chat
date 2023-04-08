@@ -2,7 +2,7 @@ import { formValidator } from './_validation/form.validator.js';
 import { Chat } from './chat.js';
 import { Router } from './router.js';
 
-class App {
+export class App {
   private _router: Router;
   private validator: formValidator;
   private chat: Chat;
@@ -49,5 +49,3 @@ class App {
     }
   }
 }
-
-const app = new App();
