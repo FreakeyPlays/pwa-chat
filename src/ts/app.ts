@@ -1,6 +1,6 @@
-import { formValidator } from './_validation/form.validator.js';
-import { Chat } from './chat.js';
-import { Router } from './router.js';
+import { formValidator } from './_validation/form.validator';
+import { Chat } from './chat';
+import { Router } from './router';
 
 export class App {
   private _router: Router;

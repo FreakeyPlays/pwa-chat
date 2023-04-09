@@ -1,6 +1,6 @@
-import { message } from './_interface/message.interface.js';
-import { ApiService } from './_service/api.service.js';
-import { Auth } from './auth.js';
+import { message } from './_interface/message.interface';
+import { ApiService } from './_service/api.service';
+import { Auth } from './auth';
 
 export class Chat {
   private _apiService: ApiService;

@@ -16,5 +16,4 @@ WORKDIR /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-COPY --from=builder /usr/src/app/src /usr/share/nginx/html
-RUN ["rm", "-rf", "/sass", "/ts"]
+COPY --from=builder /usr/src/app/src/dist /usr/share/nginx/html

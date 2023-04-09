@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "classic",
     "target": "esnext",
     "sourceMap": true,
     "outDir": "src/dist",

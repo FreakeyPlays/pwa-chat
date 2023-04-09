@@ -16,16 +16,7 @@
 
     <!-- Imports -->
     <title>PWA Chat</title>
-    <link rel="stylesheet" type="text/css" href="dist/main.css" />
     <link rel="manifest" href="manifest.webmanifest" />
-    <script src="dist/main.js" type="module" defer></script>
-    <script defer>
-      if (navigator.serviceWorker) {
-        navigator.serviceWorker.register('./sw.js').then(() => {
-          console.log('[ServiceWorker] Registered');
-        });
-      }
-    </script>
   </head>
   <body></body>
 </html>

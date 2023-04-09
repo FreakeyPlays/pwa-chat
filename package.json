@@ -6,18 +6,27 @@
   "author": "Christoph Merck",
   "type": "module",
   "scripts": {
-    "ts-dev": "tsc --watch",
-    "ts-build": "tsc",
-    "sass-dev": "sass --watch src/sass:src/dist",
-    "sass-build": "sass src/sass/main.sass src/dist/main.css",
-    "start": "concurrently \"npx http-server ./src\" \"npm run ts-dev\" \"npm run sass-dev\"",
-    "build": "npm run ts-build && npm run sass-build"
+    "start": "webpack-dev-server --config webpack.development.cjs",
+    "build": "webpack --config webpack.production.cjs"
   },
   "devDependencies": {
-    "concurrently": "8.0.1",
+    "clean-webpack-plugin": "4.0.0",
+    "copy-webpack-plugin": "11.0.0",
+    "css-loader": "6.7.3",
+    "css-minimizer-webpack-plugin": "5.0.0",
     "eslint-config-prettier": "8.8.0",
+    "file-loader": "6.2.0",
+    "html-loader": "4.2.0",
+    "html-webpack-plugin": "5.5.0",
+    "mini-css-extract-plugin": "2.7.5",
     "prettier": "2.8.7",
-    "sass": "1.60.0",
-    "typescript": "5.0.2"
+    "sass": "^1.61.0",
+    "sass-loader": "13.2.2",
+    "ts-loader": "9.4.2",
+    "typescript": "5.0.2",
+    "webpack": "5.78.0",
+    "webpack-cli": "5.0.1",
+    "webpack-dev-server": "4.13.2",
+    "webpack-merge": "5.8.0"
   }
 }

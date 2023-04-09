@@ -1,4 +1,4 @@
-import { message } from './message.interface.js';
+import { message } from './message.interface';
 
 export interface response {
   code: number;

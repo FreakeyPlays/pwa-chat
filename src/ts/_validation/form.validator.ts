@@ -1,5 +1,5 @@
-import { user } from '../_interface/user.interface.js';
-import { Auth } from '../auth.js';
+import { user } from '../_interface/user.interface';
+import { Auth } from '../auth';
 
 export class formValidator {
   private inputs: Object = {

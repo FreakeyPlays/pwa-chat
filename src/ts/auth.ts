@@ -1,6 +1,6 @@
-import { response } from './_interface/response.interface.js';
-import { user } from './_interface/user.interface.js';
-import { ApiService } from './_service/api.service.js';
+import { response } from './_interface/response.interface';
+import { user } from './_interface/user.interface';
+import { ApiService } from './_service/api.service';
 
 export class Auth {
   private static _instance: Auth;

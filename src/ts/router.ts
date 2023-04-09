@@ -1,5 +1,5 @@
-import { route } from './_interface/route.interface.js';
-import { Auth } from './auth.js';
+import { route } from './_interface/route.interface';
+import { Auth } from './auth';
 
 declare global {
   interface Window {

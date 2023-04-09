@@ -1,5 +1,5 @@
-import { response } from '../_interface/response.interface.js';
-import { user } from '../_interface/user.interface.js';
+import { response } from '../_interface/response.interface';
+import { user } from '../_interface/user.interface';
 
 export class ApiService {
   private url: string = 'https://www2.hs-esslingen.de/~melcher/map/chat/api/?';
