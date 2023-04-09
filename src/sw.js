@@ -8,8 +8,8 @@ const filesToCache = [
   '/pages/register.html',
   '/pages/404.html',
   '/components/message.html',
-  '/dist/main.css',
-  '/dist/main.js'
+  '/main.css',
+  '/main.js'
 ];
 
 self.addEventListener('install', iEvent => {
