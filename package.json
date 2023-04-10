@@ -6,7 +6,7 @@
   "author": "Christoph Merck",
   "type": "module",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.development.cjs",
+    "start": "webpack-dev-server --config webpack.development.cjs --client-logging error",
     "build": "webpack --config webpack.production.cjs"
   },
   "devDependencies": {
