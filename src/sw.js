@@ -1,5 +1,14 @@
-const cacheName = 'pwa-chat-v2';
-const filesToCache = [
+const CACHE_VERSION = {
+  STATIC: '3',
+  DYNAMIC: '1'
+};
+
+const CACHE_LIST = {
+  STATIC_CACHE: `static-pwa-chat-${CACHE_VERSION.STATIC}`,
+  DYNAMIC_CACHE: `dynamic-pwa-chat-${CACHE_VERSION.DYNAMIC}`
+};
+
+const STATIC_RESOURCE_LIST = [
   '/',
   '/index.html',
   '/manifest.webmanifest',
@@ -12,21 +21,26 @@ const filesToCache = [
   '/main.js'
 ];
 
-self.addEventListener('install', iEvent => {
-  iEvent.waitUntil(
-    caches.open(cacheName).then(cache => {
-      cache.addAll(filesToCache);
+self.addEventListener('install', e => {
+  e.waitUntil(
+    caches.open(CACHE_LIST.STATIC_CACHE).then(cache => {
+      cache.addAll(STATIC_RESOURCE_LIST);
     })
   );
 });
 
-self.addEventListener('activate', aEvent => {
-  aEvent.waitUntil(
-    caches.keys().then(cacheNames => {
+self.addEventListener('activate', e => {
+  self.clients.claim();
+  e.waitUntil(
+    caches.keys().then(cacheNameList => {
       return Promise.all(
-        cacheNames.map(cName => {
-          if (cName !== cacheName) {
-            return caches.delete(cName);
+        cacheNameList.map(cacheName => {
+          if (
+            cacheName !== CACHE_LIST.STATIC_CACHE &&
+            cacheName !== CACHE_LIST.DYNAMIC_CACHE
+          ) {
+            console.log(`Deleting cache: ${cacheName}`);
+            return caches.delete(cacheName);
           }
         })
       );
@@ -34,26 +48,30 @@ self.addEventListener('activate', aEvent => {
   );
 });
 
-self.addEventListener('fetch', fEvent => {
+self.addEventListener('fetch', e => {
+  if (e.request.url.indexOf('www2.hs-esslingen.de') > -1) return;
+
   if (
-    fEvent.request.url.startsWith('chrome-extension') ||
-    fEvent.request.url.includes('extension') ||
-    !(fEvent.request.url.indexOf('http') === 0) ||
-    fEvent.request.url.indexOf('www2.hs-esslingen.de')
-  )
-    return;
-
-  fEvent.respondWith(
-    caches.open(cacheName).then(cache => {
-      return fetch(fEvent.request.url)
-        .then(fetchedResponse => {
-          cache.put(fEvent.request.url, fetchedResponse.clone());
-
-          return fetchedResponse;
-        })
-        .catch(() => {
-          return cache.match(fEvent.request.url);
-        });
-    })
-  );
+    STATIC_RESOURCE_LIST.join().indexOf(new URL(e.request.url).pathname) > -1
+  ) {
+    e.respondWith(
+      caches.open(CACHE_LIST.STATIC_CACHE).then(staticCache => {
+        return staticCache.match(e.request.url);
+      })
+    );
+  } else {
+    e.respondWith(
+      caches.match(e.request).then(cacheResponse => {
+        return (
+          cacheResponse ||
+          fetch(e.request).then(fetchedResponse => {
+            return caches.open(CACHE_LIST.DYNAMIC_CACHE).then(dynamicCache => {
+              dynamicCache.put(e.request.url, fetchedResponse.clone());
+              return fetchedResponse;
+            });
+          })
+        );
+      })
+    );
+  }
 });
