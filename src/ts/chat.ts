@@ -37,6 +37,7 @@ export class Chat {
     document.getElementById('chat__input').addEventListener('keydown', e => {
       if (e.key == 'Enter' && !e.shiftKey) {
         e.preventDefault();
+        this.sendMessage(e.target as HTMLInputElement);
       }
     });
     document.getElementById('chat__input').addEventListener('submit', e => {
