@@ -8,6 +8,8 @@ module.exports = merge(common, {
     host: 'localhost',
     port: 8080,
     open: true,
-    historyApiFallback: true
+    historyApiFallback: true,
+    hot: false,
+    liveReload: false
   }
 });
