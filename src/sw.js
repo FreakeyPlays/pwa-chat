@@ -21,6 +21,11 @@ const STATIC_RESOURCE_LIST = [
   '/main.js'
 ];
 
+const SYNC_KEYWORDS = {
+  POST_NEW_MESSAGES: 'post-new-messages',
+  FETCH_NEW_MESSAGES: 'fetch-new-messages'
+};
+
 self.addEventListener('install', e => {
   console.log('[ServiceWorker] installEvent fired');
   e.waitUntil(
@@ -96,3 +101,19 @@ function cacheFirstNetworkFallback_cachingStrategy(cacheName, request, url) {
 self.addEventListener('push', () => {
   console.log('[ServiceWorker] pushEvent fired');
 });
+
+self.addEventListener('sync', e => {
+  console.log('[ServiceWorker] syncEvent fired');
+
+  if (e.tag === SYNC_KEYWORDS.POST_NEW_MESSAGES) {
+    sendMessageToAllClients('post-messages');
+  }
+});
+
+function sendMessageToAllClients(message) {
+  self.clients.matchAll().then(function (clients) {
+    clients.forEach(function (client) {
+      client.postMessage(message);
+    });
+  });
+}
