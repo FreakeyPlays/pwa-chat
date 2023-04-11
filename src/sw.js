@@ -1,5 +1,5 @@
 const CACHE_VERSION = {
-  STATIC: '3',
+  STATIC: '4',
   DYNAMIC: '1'
 };
 
@@ -50,6 +50,7 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   if (e.request.url.indexOf('www2.hs-esslingen.de') > -1) return;
+  if (e.request.url.indexOf('chrome-extension') > -1) return;
 
   if (
     STATIC_RESOURCE_LIST.join().indexOf(new URL(e.request.url).pathname) > -1
