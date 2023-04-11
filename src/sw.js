@@ -117,3 +117,7 @@ function sendMessageToAllClients(message) {
     });
   });
 }
+
+self.addEventListener('periodicsync', () => {
+  console.log('[ServiceWorker] periodicSyncEvent fired');
+});
