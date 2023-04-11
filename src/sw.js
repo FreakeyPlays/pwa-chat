@@ -92,3 +92,7 @@ function cacheFirstNetworkFallback_cachingStrategy(cacheName, request, url) {
     );
   });
 }
+
+self.addEventListener('push', () => {
+  console.log('[ServiceWorker] pushEvent fired');
+});
