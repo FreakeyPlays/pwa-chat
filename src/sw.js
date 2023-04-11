@@ -22,14 +22,17 @@ const STATIC_RESOURCE_LIST = [
 ];
 
 self.addEventListener('install', e => {
+  console.log('[ServiceWorker] installEvent fired');
   e.waitUntil(
     caches.open(CACHE_LIST.STATIC_CACHE).then(cache => {
       cache.addAll(STATIC_RESOURCE_LIST);
     })
   );
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', e => {
+  console.log('[ServiceWorker] activateEvent fired');
   self.clients.claim();
   e.waitUntil(
     caches.keys().then(cacheNameList => {
@@ -49,6 +52,8 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
+  console.log('[ServiceWorker] fetchEvent fired');
+
   if (e.request.url.indexOf('www2.hs-esslingen.de') > -1) return;
   if (e.request.url.indexOf('chrome-extension') > -1) return;
 
@@ -56,23 +61,34 @@ self.addEventListener('fetch', e => {
     STATIC_RESOURCE_LIST.join().indexOf(new URL(e.request.url).pathname) > -1
   ) {
     e.respondWith(
-      caches.open(CACHE_LIST.STATIC_CACHE).then(staticCache => {
-        return staticCache.match(e.request.url);
-      })
+      cacheOnly_cachingStrategy(CACHE_LIST.STATIC_CACHE, e.request.url)
     );
   } else {
     e.respondWith(
-      caches.match(e.request).then(cacheResponse => {
-        return (
-          cacheResponse ||
-          fetch(e.request).then(fetchedResponse => {
-            return caches.open(CACHE_LIST.DYNAMIC_CACHE).then(dynamicCache => {
-              dynamicCache.put(e.request.url, fetchedResponse.clone());
-              return fetchedResponse;
-            });
-          })
-        );
-      })
+      cacheFirstNetworkFallback_cachingStrategy(
+        CACHE_LIST.DYNAMIC_CACHE,
+        e.request,
+        e.request.url
+      )
     );
   }
 });
+
+function cacheOnly_cachingStrategy(cacheName, url) {
+  return caches.open(cacheName).then(cache => {
+    return cache.match(url);
+  });
+}
+function cacheFirstNetworkFallback_cachingStrategy(cacheName, request, url) {
+  return caches.match(request).then(cacheResponse => {
+    return (
+      cacheResponse ||
+      fetch(request).then(fetchedResponse => {
+        return caches.open(cacheName).then(dynamicCache => {
+          dynamicCache.put(url, fetchedResponse.clone());
+          return fetchedResponse;
+        });
+      })
+    );
+  });
+}
