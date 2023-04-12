@@ -38,6 +38,7 @@ export class formValidator {
 
     form.addEventListener('submit', e => {
       e.preventDefault();
+
       const form: HTMLFormElement = document.getElementById(
         'form'
       ) as HTMLFormElement;
@@ -57,10 +58,16 @@ export class formValidator {
         userObj[pair[0]] = pair[1];
       }
 
+      const stayLoggedIn: boolean = (
+        (e.target as HTMLFormElement).querySelector(
+          '#stayLoggedIn'
+        ) as HTMLInputElement
+      ).checked;
+
       switch (state) {
         case 'login':
           this._auth
-            .login(userObj)
+            .login(userObj, stayLoggedIn)
             .then(() => {
               window.navigateTo('/');
             })
@@ -70,7 +77,7 @@ export class formValidator {
           break;
         case 'signup':
           this._auth
-            .register(userObj)
+            .register(userObj, stayLoggedIn)
             .then(() => {
               window.navigateTo('/');
             })

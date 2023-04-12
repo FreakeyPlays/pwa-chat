@@ -1,15 +1,18 @@
 import { response } from './_interface/response.interface';
 import { user } from './_interface/user.interface';
 import { ApiService } from './_service/api.service';
+import { CookieService } from './_service/cookie.service';
 
 export class Auth {
   private static _instance: Auth;
   private _apiService: ApiService;
-  private activeUser: Object;
+  private _cookieService: CookieService;
+
+  private EXPIRATION_DAYS = 7;
 
   private constructor() {
     this._apiService = new ApiService();
-    this.activeUser = null;
+    this._cookieService = new CookieService();
   }
 
   public static getInstance(): Auth {
@@ -19,7 +22,7 @@ export class Auth {
     return Auth._instance;
   }
 
-  public async login(user: user): Promise<response> {
+  public async login(user: user, stayLoggedIn: boolean): Promise<response> {
     return this._apiService
       .logInUser(user)
       .then(response => {
@@ -27,7 +30,16 @@ export class Auth {
           console.log('Something went Wrong');
         }
 
-        this.activeUser = { token: response.token, hash: response.hash };
+        this._cookieService.new(
+          'token',
+          response.token,
+          stayLoggedIn ? this.EXPIRATION_DAYS : 0
+        );
+        this._cookieService.new(
+          'hash',
+          response.hash,
+          stayLoggedIn ? this.EXPIRATION_DAYS : 0
+        );
         return response;
       })
       .catch(err => {
@@ -36,11 +48,12 @@ export class Auth {
   }
 
   public logout() {
-    this.activeUser = null;
+    this._cookieService.delete('token');
+    this._cookieService.delete('hash');
     window.navigateTo('/login');
   }
 
-  public register(user: user): Promise<response> {
+  public register(user: user, stayLoggedIn: boolean): Promise<response> {
     return this._apiService
       .registerUser(user)
       .then(response => {
@@ -48,7 +61,16 @@ export class Auth {
           console.log('Something went Wrong');
         }
 
-        this.activeUser = { token: response.token, hash: response.hash };
+        this._cookieService.new(
+          'token',
+          response.token,
+          stayLoggedIn ? this.EXPIRATION_DAYS : 0
+        );
+        this._cookieService.new(
+          'hash',
+          response.hash,
+          stayLoggedIn ? this.EXPIRATION_DAYS : 0
+        );
         return response;
       })
       .catch(err => {
@@ -57,11 +79,13 @@ export class Auth {
   }
   public deregister(user: user) {}
 
-  public setActiveUser(token: string, hash: string) {
-    this.activeUser = { token, hash };
-  }
-
   public getActiveUser(): Object | null {
-    return this.activeUser;
+    if (this._cookieService.get('token') && this._cookieService.get('hash')) {
+      return {
+        token: this._cookieService.get('token'),
+        hash: this._cookieService.get('hash')
+      };
+    }
+    return null;
   }
 }
