@@ -1,6 +1,6 @@
 const CACHE_VERSION = {
-  STATIC: '4',
-  DYNAMIC: '1'
+  STATIC: '5',
+  DYNAMIC: '2'
 };
 
 const CACHE_LIST = {
@@ -27,7 +27,10 @@ const SYNC_KEYWORDS = {
 };
 
 self.addEventListener('install', e => {
-  console.log('[ServiceWorker] installEvent fired');
+  console.log(
+    '%c[ServiceWorker] installEvent fired',
+    'background: #F7C8E0; color: #000'
+  );
   e.waitUntil(
     caches.open(CACHE_LIST.STATIC_CACHE).then(cache => {
       cache.addAll(STATIC_RESOURCE_LIST);
@@ -37,7 +40,10 @@ self.addEventListener('install', e => {
 });
 
 self.addEventListener('activate', e => {
-  console.log('[ServiceWorker] activateEvent fired');
+  console.log(
+    '%c[ServiceWorker] activateEvent fired',
+    'background: #F7C8E0; color: #000'
+  );
   self.clients.claim();
   e.waitUntil(
     caches.keys().then(cacheNameList => {
@@ -57,7 +63,10 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  console.log('[ServiceWorker] fetchEvent fired');
+  console.log(
+    '%c[ServiceWorker] fetchEvent fired',
+    'background: #F7C8E0; color: #000'
+  );
 
   if (e.request.url.indexOf('www2.hs-esslingen.de') > -1) return;
   if (e.request.url.indexOf('chrome-extension') > -1) return;
@@ -99,19 +108,24 @@ function cacheFirstNetworkFallback_cachingStrategy(cacheName, request, url) {
 }
 
 self.addEventListener('push', () => {
-  console.log('[ServiceWorker] pushEvent fired');
+  console.log(
+    '%c[ServiceWorker] pushEvent fired',
+    'background: #F7C8E0; color: #000'
+  );
 });
 
 self.addEventListener('sync', e => {
-  console.log('[ServiceWorker] syncEvent fired');
-
-  if (e.tag === SYNC_KEYWORDS.POST_NEW_MESSAGES) {
+  console.log(
+    '%c[ServiceWorker] syncEvent fired:',
+    'background: #F7C8E0; color: #000'
+  );
+  if (e.tag == SYNC_KEYWORDS.POST_NEW_MESSAGES) {
     sendMessageToAllClients('post-messages');
   }
 });
 
 function sendMessageToAllClients(message) {
-  self.clients.matchAll().then(function (clients) {
+  self.clients.matchAll().then(clients => {
     clients.forEach(function (client) {
       client.postMessage(message);
     });
@@ -119,5 +133,8 @@ function sendMessageToAllClients(message) {
 }
 
 self.addEventListener('periodicsync', () => {
-  console.log('[ServiceWorker] periodicSyncEvent fired');
+  console.log(
+    '%c[ServiceWorker] periodicSyncEvent fired',
+    'background: #F7C8E0; color: #000'
+  );
 });

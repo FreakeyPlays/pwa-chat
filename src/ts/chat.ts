@@ -33,6 +33,12 @@ export class Chat {
   }
 
   public init() {
+    navigator.serviceWorker.addEventListener('message', e => {
+      if (e.data == 'post-messages') {
+        console.log('test ijn chat');
+      }
+    });
+
     this.fetchMessages();
     document.getElementById('chat__input').addEventListener('keydown', e => {
       if (e.key == 'Enter' && !e.shiftKey) {
