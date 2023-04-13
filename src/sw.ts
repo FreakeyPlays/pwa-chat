@@ -1,3 +1,7 @@
+import { ApiService } from './ts/_service/api.service';
+import { IndexedDBManager } from './ts/_service/storage.service';
+const _apiService = new ApiService();
+
 const CACHE_VERSION = {
   STATIC: '5',
   DYNAMIC: '2'
@@ -31,12 +35,12 @@ self.addEventListener('install', e => {
     '%c[ServiceWorker] installEvent fired',
     'background: #F7C8E0; color: #000'
   );
-  e.waitUntil(
+  (e as any).waitUntil(
     caches.open(CACHE_LIST.STATIC_CACHE).then(cache => {
       cache.addAll(STATIC_RESOURCE_LIST);
     })
   );
-  self.skipWaiting();
+  (self as any).skipWaiting();
 });
 
 self.addEventListener('activate', e => {
@@ -44,8 +48,8 @@ self.addEventListener('activate', e => {
     '%c[ServiceWorker] activateEvent fired',
     'background: #F7C8E0; color: #000'
   );
-  self.clients.claim();
-  e.waitUntil(
+  (self as any).clients.claim();
+  (e as any).waitUntil(
     caches.keys().then(cacheNameList => {
       return Promise.all(
         cacheNameList.map(cacheName => {
@@ -68,21 +72,23 @@ self.addEventListener('fetch', e => {
     'background: #F7C8E0; color: #000'
   );
 
-  if (e.request.url.indexOf('www2.hs-esslingen.de') > -1) return;
-  if (e.request.url.indexOf('chrome-extension') > -1) return;
+  if ((e as any).request.url.indexOf('www2.hs-esslingen.de') > -1) return;
+  if ((e as any).request.url.indexOf('chrome-extension') > -1) return;
 
   if (
-    STATIC_RESOURCE_LIST.join().indexOf(new URL(e.request.url).pathname) > -1
+    STATIC_RESOURCE_LIST.join().indexOf(
+      new URL((e as any).request.url).pathname
+    ) > -1
   ) {
-    e.respondWith(
-      cacheOnly_cachingStrategy(CACHE_LIST.STATIC_CACHE, e.request.url)
+    (e as any).respondWith(
+      cacheOnly_cachingStrategy(CACHE_LIST.STATIC_CACHE, (e as any).request.url)
     );
   } else {
-    e.respondWith(
+    (e as any).respondWith(
       cacheFirstNetworkFallback_cachingStrategy(
         CACHE_LIST.DYNAMIC_CACHE,
-        e.request,
-        e.request.url
+        (e as any).request,
+        (e as any).request.url
       )
     );
   }
@@ -119,16 +125,20 @@ self.addEventListener('sync', e => {
     '%c[ServiceWorker] syncEvent fired:',
     'background: #F7C8E0; color: #000'
   );
-  if (e.tag == SYNC_KEYWORDS.POST_NEW_MESSAGES) {
-    sendMessageToAllClients('post-messages');
+  if ((e as any).tag == SYNC_KEYWORDS.POST_NEW_MESSAGES) {
+    syncUnsentMessagesWithServer();
   }
 });
 
-function sendMessageToAllClients(message) {
-  self.clients.matchAll().then(clients => {
-    clients.forEach(function (client) {
-      client.postMessage(message);
+function syncUnsentMessagesWithServer() {
+  const db = IndexedDBManager.getInstance();
+  db.getUnsentMessages().then(data => {
+    const requests = (data as any).map(message => {
+      console.log('Test');
+      _apiService.sendMessage(message.hash, message.text);
     });
+
+    return Promise.all(requests);
   });
 }
 

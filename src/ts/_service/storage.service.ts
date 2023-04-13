@@ -21,7 +21,7 @@ export class IndexedDBManager {
   private init(): void {
     if (this.db) return;
 
-    const request: IDBOpenDBRequest = window.indexedDB.open(
+    const request: IDBOpenDBRequest = indexedDB.open(
       this.dbName,
       this.dbVersion
     );

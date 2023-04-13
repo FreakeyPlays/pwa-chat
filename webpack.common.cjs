@@ -6,7 +6,7 @@ const path = require('path');
 module.exports = {
   entry: {
     main: './src/main.ts',
-    sw: './src/sw.js'
+    sw: './src/sw.ts'
   },
   output: {
     path: path.resolve(__dirname, 'src/dist'),
