@@ -18,15 +18,18 @@ export class IndexedDBManager {
     return IndexedDBManager._instance;
   }
 
-  private init() {
+  private init(): void {
     if (this.db) return;
 
-    const request = window.indexedDB.open(this.dbName, this.dbVersion);
-    request.onerror = e => {
+    const request: IDBOpenDBRequest = window.indexedDB.open(
+      this.dbName,
+      this.dbVersion
+    );
+    request.onerror = (e: Event) => {
       console.error('[IndexedDB] Initialization error', e);
     };
 
-    request.onupgradeneeded = e => {
+    request.onupgradeneeded = (e: Event) => {
       console.log('[IndexedDB] needed Upgrade');
 
       this.db = request.result;
@@ -39,7 +42,7 @@ export class IndexedDBManager {
       });
     };
 
-    request.onsuccess = e => {
+    request.onsuccess = (e: Event) => {
       console.log('[IndexedDB] Initialized');
 
       this.db = request.result;
@@ -47,11 +50,16 @@ export class IndexedDBManager {
   }
 
   // Messages
-  public async addMessage(data: message) {
+  public async addMessage(data: message): Promise<unknown> {
     return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction(this.dbStoreName[0], 'readwrite');
-      const objectStore = transaction.objectStore(this.dbStoreName[0]);
-      const request = objectStore.add({ ...data });
+      const transaction: IDBTransaction = this.db.transaction(
+        this.dbStoreName[0],
+        'readwrite'
+      );
+      const objectStore: IDBObjectStore = transaction.objectStore(
+        this.dbStoreName[0]
+      );
+      const request: IDBRequest<IDBValidKey> = objectStore.add({ ...data });
 
       request.onerror = e => {
         reject(e);
@@ -63,11 +71,16 @@ export class IndexedDBManager {
     });
   }
 
-  public async getMessage(id: number) {
+  public async getMessage(id: number): Promise<unknown> {
     return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction(this.dbStoreName[0], 'readonly');
-      const objectStore = transaction.objectStore(this.dbStoreName[0]);
-      const request = objectStore.get(id);
+      const transaction: IDBTransaction = this.db.transaction(
+        this.dbStoreName[0],
+        'readonly'
+      );
+      const objectStore: IDBObjectStore = transaction.objectStore(
+        this.dbStoreName[0]
+      );
+      const request: IDBRequest<IDBValidKey> = objectStore.get(id);
 
       request.onerror = e => {
         reject(e);
@@ -79,11 +92,16 @@ export class IndexedDBManager {
     });
   }
 
-  public async getAllMessages() {
+  public async getAllMessages(): Promise<unknown> {
     return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction(this.dbStoreName[0], 'readonly');
-      const objectStore = transaction.objectStore(this.dbStoreName[0]);
-      const request = objectStore.getAll();
+      const transaction: IDBTransaction = this.db.transaction(
+        this.dbStoreName[0],
+        'readonly'
+      );
+      const objectStore: IDBObjectStore = transaction.objectStore(
+        this.dbStoreName[0]
+      );
+      const request: IDBRequest<IDBValidKey> = objectStore.getAll();
 
       request.onerror = e => {
         reject(e);
@@ -95,11 +113,16 @@ export class IndexedDBManager {
     });
   }
 
-  public async deleteMessage(id: number) {
+  public async deleteMessage(id: number): Promise<unknown> {
     return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction(this.dbStoreName[0], 'readwrite');
-      const objectStore = transaction.objectStore(this.dbStoreName[0]);
-      const request = objectStore.delete(id);
+      const transaction: IDBTransaction = this.db.transaction(
+        this.dbStoreName[0],
+        'readwrite'
+      );
+      const objectStore: IDBObjectStore = transaction.objectStore(
+        this.dbStoreName[0]
+      );
+      const request: IDBRequest<IDBValidKey> = objectStore.delete(id);
 
       request.onerror = e => {
         reject(e);
@@ -111,11 +134,16 @@ export class IndexedDBManager {
     });
   }
 
-  public async deleteAllMessages() {
+  public async deleteAllMessages(): Promise<unknown> {
     return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction(this.dbStoreName[0], 'readwrite');
-      const objectStore = transaction.objectStore(this.dbStoreName[0]);
-      const request = objectStore.clear();
+      const transaction: IDBTransaction = this.db.transaction(
+        this.dbStoreName[0],
+        'readwrite'
+      );
+      const objectStore: IDBObjectStore = transaction.objectStore(
+        this.dbStoreName[0]
+      );
+      const request: IDBRequest<IDBValidKey> = objectStore.clear();
 
       request.onerror = e => {
         reject(e);
@@ -128,11 +156,16 @@ export class IndexedDBManager {
   }
 
   // Unsent Messages
-  public async addUnsentMessage(data: message) {
+  public async addUnsentMessage(data: message): Promise<unknown> {
     return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction(this.dbStoreName[1], 'readwrite');
-      const objectStore = transaction.objectStore(this.dbStoreName[1]);
-      const request = objectStore.add({ ...data });
+      const transaction: IDBTransaction = this.db.transaction(
+        this.dbStoreName[1],
+        'readwrite'
+      );
+      const objectStore: IDBObjectStore = transaction.objectStore(
+        this.dbStoreName[1]
+      );
+      const request: IDBRequest<IDBValidKey> = objectStore.add({ ...data });
 
       request.onerror = e => {
         reject(e);
@@ -144,11 +177,16 @@ export class IndexedDBManager {
     });
   }
 
-  public async getUnsentMessages() {
+  public async getUnsentMessages(): Promise<unknown> {
     return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction(this.dbStoreName[1], 'readonly');
-      const objectStore = transaction.objectStore(this.dbStoreName[1]);
-      const request = objectStore.getAll();
+      const transaction: IDBTransaction = this.db.transaction(
+        this.dbStoreName[1],
+        'readonly'
+      );
+      const objectStore: IDBObjectStore = transaction.objectStore(
+        this.dbStoreName[1]
+      );
+      const request: IDBRequest<IDBValidKey> = objectStore.getAll();
 
       request.onerror = e => {
         reject(e);
@@ -160,11 +198,16 @@ export class IndexedDBManager {
     });
   }
 
-  public async getAllUnsentMessages() {
+  public async getAllUnsentMessages(): Promise<unknown> {
     return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction(this.dbStoreName[1], 'readonly');
-      const objectStore = transaction.objectStore(this.dbStoreName[1]);
-      const request = objectStore.getAll();
+      const transaction: IDBTransaction = this.db.transaction(
+        this.dbStoreName[1],
+        'readonly'
+      );
+      const objectStore: IDBObjectStore = transaction.objectStore(
+        this.dbStoreName[1]
+      );
+      const request: IDBRequest<IDBValidKey> = objectStore.getAll();
 
       request.onerror = e => {
         reject(e);
@@ -176,11 +219,16 @@ export class IndexedDBManager {
     });
   }
 
-  public async deleteUnsentMessage(id: number) {
+  public async deleteUnsentMessage(id: number): Promise<unknown> {
     return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction(this.dbStoreName[1], 'readwrite');
-      const objectStore = transaction.objectStore(this.dbStoreName[1]);
-      const request = objectStore.delete(id);
+      const transaction: IDBTransaction = this.db.transaction(
+        this.dbStoreName[1],
+        'readwrite'
+      );
+      const objectStore: IDBObjectStore = transaction.objectStore(
+        this.dbStoreName[1]
+      );
+      const request: IDBRequest<IDBValidKey> = objectStore.delete(id);
 
       request.onerror = e => {
         reject(e);
@@ -192,11 +240,16 @@ export class IndexedDBManager {
     });
   }
 
-  public async deleteAllUnsentMessages() {
+  public async deleteAllUnsentMessages(): Promise<unknown> {
     return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction(this.dbStoreName[1], 'readwrite');
-      const objectStore = transaction.objectStore(this.dbStoreName[1]);
-      const request = objectStore.clear();
+      const transaction: IDBTransaction = this.db.transaction(
+        this.dbStoreName[1],
+        'readwrite'
+      );
+      const objectStore: IDBObjectStore = transaction.objectStore(
+        this.dbStoreName[1]
+      );
+      const request: IDBRequest<IDBValidKey> = objectStore.clear();
 
       request.onerror = e => {
         reject(e);
