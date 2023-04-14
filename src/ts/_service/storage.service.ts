@@ -18,35 +18,39 @@ export class IndexedDBManager {
     return IndexedDBManager._instance;
   }
 
-  private init(): void {
+  private async init(): Promise<void> {
     if (this.db) return;
 
-    const request: IDBOpenDBRequest = indexedDB.open(
-      this.dbName,
-      this.dbVersion
-    );
-    request.onerror = (e: Event) => {
-      console.error('[IndexedDB] Initialization error', e);
-    };
+    return await new Promise((resolve, reject) => {
+      const request: IDBOpenDBRequest = indexedDB.open(
+        this.dbName,
+        this.dbVersion
+      );
+      request.onerror = (e: Event) => {
+        console.error('[IndexedDB] Initialization error', e);
+        reject(e);
+      };
 
-    request.onupgradeneeded = (e: Event) => {
-      console.log('[IndexedDB] needed Upgrade');
+      request.onupgradeneeded = (e: Event) => {
+        console.log('[IndexedDB] needed Upgrade');
 
-      this.db = request.result;
-      this.db.createObjectStore(this.dbStoreName[0], {
-        keyPath: 'id'
-      });
-      this.db.createObjectStore(this.dbStoreName[1], {
-        keyPath: 'id',
-        autoIncrement: true
-      });
-    };
+        this.db = request.result;
+        this.db.createObjectStore(this.dbStoreName[0], {
+          keyPath: 'id'
+        });
+        this.db.createObjectStore(this.dbStoreName[1], {
+          keyPath: 'id',
+          autoIncrement: true
+        });
+      };
 
-    request.onsuccess = (e: Event) => {
-      console.log('[IndexedDB] Initialized');
+      request.onsuccess = (e: Event) => {
+        console.log('[IndexedDB] Initialized');
 
-      this.db = request.result;
-    };
+        this.db = request.result;
+        resolve();
+      };
+    });
   }
 
   // Messages
