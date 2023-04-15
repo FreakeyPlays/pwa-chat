@@ -2,6 +2,7 @@ import { response } from './_interface/response.interface';
 import { user } from './_interface/user.interface';
 import { ApiService } from './_service/api.service';
 import { CookieService } from './_service/cookie.service';
+import { IndexedDBManager } from './_service/storage.service';
 
 export class Auth {
   private static _instance: Auth;
@@ -50,6 +51,10 @@ export class Auth {
   public logout() {
     this._cookieService.delete('token');
     this._cookieService.delete('hash');
+    IndexedDBManager.getInstance().then(db => {
+      db.deleteAllMessages();
+      db.deleteAllUnsentMessages();
+    });
     window.navigateTo('/login');
   }
 
