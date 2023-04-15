@@ -5,7 +5,31 @@
     </a>
     <div class="header__container">
       <h1 class="header__container__title">Chat</h1>
-      <div class="header__container__nav"></div>
+      <div class="menuBtn" onclick="this.classList.toggle('active')">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="chat__header__options">
+        <div class="chat__header__options__element">
+          <h3 class="element__title">Theme</h3>
+          <div class="element__content theme">
+            <button class="current">Light</button>
+            <button>Dark</button>
+          </div>
+        </div>
+        <div class="chat__header__options__element">
+          <h3 class="element__title">Font Size</h3>
+          <div class="element__content fontsize">
+            <input type="range" name="fontsize" id="fontsize" />
+          </div>
+        </div>
+        <div class="chat__header__options__element">
+          <div class="element__content">
+            <h3 class="element__title">Deregister</h3>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div id="chat__window" class="chat__window"></div>

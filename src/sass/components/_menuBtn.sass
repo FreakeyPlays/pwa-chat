@@ -1,0 +1,114 @@
+@use '../abstracts/variables' as *
+@use '../abstracts/mixins' as m
+@use 'buttons' as *
+  
+.menuBtn
+  display: flex
+  flex-direction: column
+  width: 50px
+  cursor: pointer
+
+  span
+    background: $clr-secondary
+    border-radius: 8px
+    height: 4px
+    margin: 3px 0
+    transition: .4s cubic-bezier(0.68, -0.55, 0.265, 1.55)
+
+    &:nth-child(1)
+      width: 50%
+    
+    &:nth-child(2)
+      width: 100%
+
+    &:nth-child(3)
+      width: 75%
+
+  &.active 
+    span
+      &:nth-child(1)
+        transform-origin: bottom
+        transform: rotatez(45deg) translate(4px,0px)
+      
+      &:nth-child(2)
+        transform-origin: top
+        transform: rotatez(-45deg)
+      
+      &:nth-child(3)
+        transform-origin: bottom
+        width:50%
+        transform: translate(20px,-1px) rotatez(45deg)
+
+  &:not(.active) ~ .chat__header__options
+    max-height: 0px
+    opacity: 0
+
+.chat__header__options
+  box-shadow: 0 0 2rem rgba(black, 0.075), 0rem 1rem 1rem -1rem rgba(black, 0.1)
+  padding: 12px
+  border-radius: 12px
+  position: fixed
+  top: 80px
+  right: 6px
+  background-color: $clr-primary
+  overflow: hidden
+  width: calc( 100% - 12px )
+  max-height: 600px
+  opacity: 1
+  transition: all .3s ease-in-out
+
+  @include m.mq("small")
+    width: 50%
+    max-width: 250px
+
+  &__element
+    border-bottom: 1px solid $clr-secondary
+    width: 100%
+    margin-bottom: 12px
+    padding-bottom: 6px
+
+    .element__title
+      color: $clr-secondary
+      font-size: 1.2em
+      font-weight: bold
+      line-height: 1.2em
+      margin-bottom: 6px
+
+    .element__content
+      &.theme
+        width: 100%
+        display: flex
+        flex-direction: row
+        justify-content: space-around
+        align-items: center
+        gap: 12px
+
+        button
+          @include button-theme($clr-highlight, $clr-secondary)
+          width: 100%
+
+          &.current
+            @include button-theme(darken($clr-highlight, 15%), $clr-secondary)
+            outline-offset: 2px
+            outline: 2px solid $clr-secondary
+
+      &.fontsize
+        input
+          width: 100%
+          appearance: none
+          height: 10px
+          outline: none
+          background: lighten($clr-secondary, 75%)
+          border-radius: 5px
+
+          &::-webkit-slider-thumb
+            appearance: none
+            cursor: pointer
+            width: 24px
+            height: 24px
+            border-radius: 12px
+            background: $clr-highlight
+
+
+    &:last-child
+      margin-bottom: 0
