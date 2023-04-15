@@ -3,8 +3,8 @@ import { IndexedDBManager } from './ts/_service/storage.service';
 const _apiService = new ApiService();
 
 const CACHE_VERSION = {
-  STATIC: '5',
-  DYNAMIC: '2'
+  STATIC: '6',
+  DYNAMIC: '3'
 };
 
 const CACHE_LIST = {
