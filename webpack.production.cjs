@@ -7,7 +7,20 @@ const { merge } = require('webpack-merge');
 module.exports = merge(common, {
   mode: 'production',
   optimization: {
-    minimizer: [new CssMinimizerPlugin(), new TenserPlugin()]
+    minimize: true,
+    minimizer: [
+      new CssMinimizerPlugin(),
+      new TenserPlugin({
+        terserOptions: {
+          mangle: {
+            properties: {
+              keep_quoted: false,
+              regex: /^_/
+            }
+          }
+        }
+      })
+    ]
   },
   plugins: [new CleanWebpackPlugin()]
 });
