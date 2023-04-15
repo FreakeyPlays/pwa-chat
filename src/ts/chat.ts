@@ -1,5 +1,6 @@
 import { message } from './_interface/message.interface';
 import { ApiService } from './_service/api.service';
+import { IndexedDBManager } from './_service/storage.service';
 import { Auth } from './auth';
 
 export class Chat {
@@ -34,8 +35,8 @@ export class Chat {
 
   public init() {
     navigator.serviceWorker.addEventListener('message', e => {
-      if (e.data == 'post-messages') {
-        console.log('test ijn chat');
+      if (e.data.type == 'fetch-messages') {
+        this.fetchMessages();
       }
     });
 
@@ -67,8 +68,21 @@ export class Chat {
     this._apiService
       .sendMessage(this._auth.getActiveUser()['token'], text)
       .then(() => this.fetchMessages())
-      .catch(e => console.error("Couldn't send message", e));
-    this.fetchMessages();
+      .catch(e => {
+        console.error("Couldn't send message", e);
+
+        IndexedDBManager.getInstance().then(db => {
+          db.addUnsentMessage({
+            token: this._auth.getActiveUser()['token'],
+            text: text
+          }).then(() => {
+            navigator.serviceWorker.ready.then(registration => {
+              registration.sync.register('post-new-messages');
+              console.log('sync registered');
+            });
+          });
+        });
+      });
   }
 
   public fetchMessages() {
@@ -76,8 +90,19 @@ export class Chat {
 
     this._apiService
       .fetchMessages(this._auth.getActiveUser()['token'])
-      .then(e => this.addMessageNodes(e.messages))
+      .then(e => {
+        this.storeMessages(e.messages);
+        this.addMessageNodes(e.messages);
+      })
       .catch(err => console.error('Could not fetch messages', err));
+  }
+
+  private storeMessages(messages: Array<message>) {
+    IndexedDBManager.getInstance().then(db => {
+      for (let msg of messages) {
+        db.addMessage(msg);
+      }
+    });
   }
 
   private compareDates(date: string) {

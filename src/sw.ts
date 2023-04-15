@@ -27,7 +27,7 @@ const STATIC_RESOURCE_LIST = [
 
 const SYNC_KEYWORDS = {
   POST_NEW_MESSAGES: 'post-new-messages',
-  FETCH_NEW_MESSAGES: 'fetch-new-messages'
+  FETCH_NEW_MESSAGES: 'fetch-messages'
 };
 
 self.addEventListener('install', e => {
@@ -126,19 +126,35 @@ self.addEventListener('sync', e => {
     'background: #F7C8E0; color: #000'
   );
   if ((e as any).tag == SYNC_KEYWORDS.POST_NEW_MESSAGES) {
-    syncUnsentMessagesWithServer();
+    (e as any).waitUntil(syncUnsentMessagesWithServer());
   }
 });
 
 function syncUnsentMessagesWithServer() {
-  const db = IndexedDBManager.getInstance();
-  db.getUnsentMessages().then(data => {
-    const requests = (data as any).map(message => {
-      console.log('Test');
-      _apiService.sendMessage(message.hash, message.text);
-    });
+  IndexedDBManager.getInstance()
+    .then(db => {
+      db.getUnsentMessages().then(data => {
+        const requests = (data as any).map(message => {
+          _apiService.sendMessage(message.token, message.text).then(() => {
+            db.deleteUnsentMessage(message.id);
+          });
+        });
 
-    return Promise.all(requests);
+        return Promise.all(requests);
+      });
+    })
+    .then(() => {
+      sendMessageToAllClients({
+        type: SYNC_KEYWORDS.FETCH_NEW_MESSAGES
+      });
+    });
+}
+
+function sendMessageToAllClients(message) {
+  return (self as any).clients.matchAll().then(clients => {
+    clients.forEach(client => {
+      client.postMessage(message);
+    });
   });
 }
 

@@ -7,21 +7,18 @@ export class IndexedDBManager {
   private dbStoreName: Array<string> = ['messages', 'unsent_messages'];
   private static _instance: IndexedDBManager;
 
-  private constructor() {
-    this.init();
-  }
+  private constructor() {}
 
-  public static getInstance(): IndexedDBManager {
+  public static async getInstance(): Promise<IndexedDBManager> {
     if (!IndexedDBManager._instance) {
       IndexedDBManager._instance = new IndexedDBManager();
+      await IndexedDBManager._instance.init();
     }
     return IndexedDBManager._instance;
   }
 
   private async init(): Promise<void> {
-    if (this.db) return;
-
-    return await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const request: IDBOpenDBRequest = indexedDB.open(
         this.dbName,
         this.dbVersion
@@ -160,7 +157,7 @@ export class IndexedDBManager {
   }
 
   // Unsent Messages
-  public async addUnsentMessage(data: message): Promise<unknown> {
+  public async addUnsentMessage(data: Object): Promise<unknown> {
     return new Promise((resolve, reject) => {
       const transaction: IDBTransaction = this.db.transaction(
         this.dbStoreName[1],
