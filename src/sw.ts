@@ -16,9 +16,7 @@ const STATIC_RESOURCE_LIST = [
   '/',
   '/index.html',
   '/manifest.webmanifest',
-  '/pages/login.html',
   '/pages/chat.html',
-  '/pages/register.html',
   '/pages/404.html',
   '/components/message.html',
   '/main.css',
@@ -74,6 +72,7 @@ self.addEventListener('fetch', e => {
 
   if ((e as any).request.url.indexOf('www2.hs-esslingen.de') > -1) return;
   if ((e as any).request.url.indexOf('chrome-extension') > -1) return;
+  if ((e as any).request.url.indexOf(location.host) == -1) return;
 
   if (
     STATIC_RESOURCE_LIST.join().indexOf(

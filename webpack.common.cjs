@@ -49,7 +49,7 @@ module.exports = {
       template: './src/index.html',
       filename: 'index.html',
       title: 'PWA Chat',
-      favicon: './src/assets/favicon.ico',
+      favicon: './src/favicon.ico',
       chunks: ['main']
     }),
     new CopyPlugin({
