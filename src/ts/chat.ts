@@ -100,7 +100,7 @@ export class Chat {
   private storeMessages(messages: Array<message>) {
     IndexedDBManager.getInstance().then(db => {
       for (let msg of messages) {
-        db.addMessage(msg);
+        db.addMessage(msg).catch(() => {});
       }
     });
   }
