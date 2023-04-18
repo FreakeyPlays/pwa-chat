@@ -40,11 +40,10 @@ export class ApiService {
     }
   }
 
-  public async deregisterUser(user: user): Promise<response> {
+  public async deregisterUser(token: string): Promise<response> {
     const params = new URLSearchParams({
       request: 'deregister',
-      userid: user.userid,
-      password: user.password
+      token: token
     });
 
     try {

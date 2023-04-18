@@ -56,6 +56,12 @@ export class Chat {
     document.getElementById('header__back').addEventListener('click', () => {
       this._auth.logout();
     });
+
+    document.getElementById('deregister').addEventListener('click', e => {
+      if (confirm('Are you sure you want to deregister?')) {
+        this._auth.deregister();
+      }
+    });
   }
 
   private sendMessage(input: HTMLInputElement) {

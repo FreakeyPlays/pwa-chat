@@ -82,7 +82,19 @@ export class Auth {
         throw err;
       });
   }
-  public deregister(user: user) {}
+  public deregister() {
+    this._apiService
+      .deregisterUser(this._cookieService.get('token'))
+      .then(response => {
+        if (response.status != 'ok') {
+          console.log('Something went Wrong');
+        }
+        this.logout();
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
 
   public getActiveUser(): Object | null {
     if (this._cookieService.get('token') && this._cookieService.get('hash')) {
