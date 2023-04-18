@@ -73,6 +73,7 @@ self.addEventListener('fetch', e => {
   if ((e as any).request.url.indexOf('www2.hs-esslingen.de') > -1) return;
   if ((e as any).request.url.indexOf('chrome-extension') > -1) return;
   if ((e as any).request.url.indexOf(location.host) == -1) return;
+  if ((e as any).request.url.indexOf(location.pathname) == -1) return;
 
   if (
     STATIC_RESOURCE_LIST.join().indexOf(
