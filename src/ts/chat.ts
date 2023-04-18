@@ -62,6 +62,10 @@ export class Chat {
         this._auth.deregister();
       }
     });
+    document.getElementById('fontsize').addEventListener('input', e => {
+      const value = (e.target as HTMLInputElement).value;
+      document.body.style.fontSize = `${(+value / 100) * 12}pt`;
+    });
   }
 
   private sendMessage(input: HTMLInputElement) {
