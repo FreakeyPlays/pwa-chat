@@ -79,7 +79,22 @@ $primary-light: blue
 
         &:not(:placeholder-shown):not(:focus):not(:hover) ~ .form__group__label
           border-color: $clr-secondary
-          
+
+      &__icon
+        position: absolute
+        width: 30px
+        height: 30px
+        right: 6px
+        top: 9px
+        background-image: url(../assets/icons/password_show.svg)
+        background-repeat: no-repeat
+        background-position: center
+        background-size: cover
+        cursor: pointer
+
+        &.active
+          background-image: url(../assets/icons/password_hide.svg)
+
       &__label
         position: absolute
         left: 12px

@@ -97,6 +97,22 @@ export class formValidator {
           this.inputs[inputGroup.dataset.formField]
         );
       });
+
+      if (inputGroup.dataset.formField.indexOf('password') > -1) {
+        inputGroup
+          .getElementsByClassName('form__group__icon')[0]
+          .addEventListener('click', e => {
+            (e.target as HTMLElement).classList.toggle('active');
+            console.log('Test');
+
+            const input = (e.target as HTMLElement).previousElementSibling;
+            if (input.getAttribute('type') === 'password') {
+              input.setAttribute('type', 'text');
+            } else {
+              input.setAttribute('type', 'password');
+            }
+          });
+      }
     }
   }
 
