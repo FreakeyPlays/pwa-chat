@@ -1,0 +1,745 @@
+@use '../abstract/variables' as *
+
+*
+  &::-webkit-scrollbar
+    width: 0.5rem
+
+  &::-webkit-scrollbar-track
+    background-color: var(--clr-scrollbar-track)
+    border-radius: .25rem
+
+  &::-webkit-scrollbar-thumb
+    background-color: var(--clr-scrollbar-thumb)
+    background-clip: content-box
+    border-radius: .25rem
+
+  &::-webkit-scrollbar-thumb:hover
+    background-color: var(--clr-scrollbar-thumb-hover)
+
+  &::-webkit-scrollbar-thumb:active
+    background-color: var(--clr-scrollbar-thumb-active)
+    
+
+.chat
+  position: relative
+  width: 100%
+  height: 100vh
+  overflow: hidden
+  display: flex
+  flex-direction: column
+
+  &__app-bar
+    position: fixed
+    z-index: 100
+    width: 100%
+    height: fit-content
+    background-color: var(--clr-appbar-background)
+    padding: 1.5rem
+    display: flex
+    flex-direction: row
+    gap: 1.5rem
+    align-items: center
+    justify-content: space-between
+    box-shadow: 0 2px 8px 0 rgba(99, 99, 99, 0.2)
+
+    &__container
+      width: 100%
+      display: flex
+      flex-direction: row
+      align-items: center
+      justify-content: space-between
+
+      .title
+        color: var(--clr-appbar-text)
+        font-size: 2rem
+        font-weight: 700 
+
+      .search
+        width: 2.5rem
+        height: 2.5rem
+        border-radius: 0.4rem
+        cursor: pointer
+        transition: background-color .2s ease-in-out
+
+        &:hover
+          background-color: var(--clr-appbar-icon-hover)
+
+        .icon
+          width: 100%
+          height: 100%
+          background-color: var(--clr-appbar-icon)
+          mask: url(../../assets/icons/search.svg) no-repeat center
+          -webkit-mask: url(../../assets/icons/search.svg) no-repeat center
+          mask-size: 90%
+          -webkit-mask-size: 90%
+
+    &__settings
+      width: 2.5rem
+      height: 2.5rem
+      cursor: pointer
+      transition: background-color .2s ease-in-out
+      border-radius: 0.4rem
+
+      &:hover
+        background-color: var(--clr-appbar-icon-hover)
+
+      .icon
+        width: 100%
+        height: 100%
+        background-color: var(--clr-appbar-icon)
+        mask: url(../../assets/icons/more.svg) no-repeat center
+        -webkit-mask: url(../../assets/icons/more.svg) no-repeat center
+        mask-size: 90%
+        -webkit-mask-size: 90%  
+
+  &__window
+    width: 100%
+    height: 100%
+    margin-top: 5.715rem
+    background-color: var(--clr-background)
+    background-size: cover
+    background-position: center
+    background-repeat: no-repeat
+    padding: 1.5rem 1.5rem 7rem 1.5rem
+    display: flex
+    flex-direction: column-reverse
+    overflow-y: scroll
+    overflow-x: hidden
+
+    &__divider
+      width: fit-content
+      background-color: var(--clr-message-divider)
+      color: var(--clr-message-divider-text)
+      padding: .4rem 1rem
+      border-radius: 2rem
+      font-weight: 700
+      margin: 1rem auto 0 auto
+
+      &:last-child
+        margin-top: 0
+
+  &__preview
+    position: absolute
+    width: 10rem
+    height: 7rem
+    border-radius: 1.5rem
+    background-color: var(--clr-primary)
+    left: 3rem
+    bottom: 5.5rem
+    margin-bottom: 1rem
+
+    &:has(.chat__preview__container__image:not([src]))
+      display: none
+
+    &__container
+      position: relative
+      width: 100%
+      height: 100%
+
+      &__image
+        width: 100%
+        height: 100%
+        border-radius: 1.5rem
+
+      &__remove
+        position: absolute
+        top: .5rem
+        right: .5rem
+        width: 2rem
+        height: 2rem
+        cursor: pointer
+        background-image: url(../../assets/icons/close.svg)
+        background-size: cover
+        background-position: center
+        background-repeat: no-repeat
+        transition: transform .4s ease-in-out
+
+  &__compose
+    position: fixed
+    bottom: 0
+    width: calc( 100% - 3rem )
+    min-height: 4rem
+    height: fit-content
+    display: flex
+    flex-direction: row
+    align-items: center
+    gap: 1.5rem
+    margin: 0 1.5rem 1.5rem 1.5rem
+
+  .compose
+    &__container
+      width: calc( 100% - 6rem )
+      background-color: var(--clr-compose-background)
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px
+      border-radius: 2rem
+      padding: .5rem 1rem
+      display: flex
+      flex-direction: row
+      align-items: center
+      gap: .75rem
+
+      &__camera
+        width: 2.5rem
+        height: 2.5rem
+        cursor: pointer
+
+        &__icon
+          width: 100%
+          height: 100%
+          background-color: var(--clr-compose-icon)
+          mask: url(../../assets/icons/camera.svg) no-repeat center
+          -webkit-mask: url(../../assets/icons/camera.svg) no-repeat center
+          mask-size: 100%
+          -webkit-mask-size: 100%
+
+      &__microphone
+        width: 2.5rem
+        height: 2.5rem
+        cursor: pointer
+
+        &__icon
+          width: 100%
+          height: 100%
+          background-color: var(--clr-compose-icon)
+          mask: url(../../assets/icons/microphone.svg) no-repeat center
+          -webkit-mask: url(../../assets/icons/microphone.svg) no-repeat center
+          mask-size: 100%
+          -webkit-mask-size: 100%
+
+        @keyframes recording
+          0%
+            transform: scale(1)
+          25%
+            transform: scale(1.05)
+          50%
+            transform: scale(1)
+          75%
+            transform: scale(.95)
+          100%
+            transfform: scale(1)
+
+        &.recording
+          padding: .3rem
+          background-color: var(--clr-compose-recording)
+          border-radius: 1.5rem
+          animation: recording 1s infinite
+
+          .compose__container__microphone__icon
+            background-color: var(--clr-compose-recording-icon)
+
+          &:hover
+            .compose__container__microphone__icon
+              background-color: var(--clr-compose-recording-icon)
+              mask-image: url(../../assets/icons/microphone-off.svg)
+              -webkit-mask-image: url(../../assets/icons/microphone-off.svg)
+
+      &__input
+        width: 100%
+        resize: none
+        color: var(--clr-compose-text)
+        background-color: transparent
+        border: none
+        font-size: 1.2rem
+        font-weight: 400
+
+        &::placeholder
+          font-size: 1.2rem
+          color: var(--clr-compose-placeholder)
+
+        &:focus
+          outline: none
+
+    &__send
+      width: 3.5rem
+      height: 3.5rem
+      border-radius: 2rem
+      border: none
+      background-color: var(--clr-compose-send-background)
+      cursor: pointer
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px
+      transition: background-size .4s ease-in-out, background-color .2s ease-in-out
+
+      &:hover
+        background-color: var(--clr-compose-send-background-hover)
+
+      &__icon
+        width: 100%
+        height: 100%
+        background-color: var(--clr-compose-send-icon)
+        transform: rotate(-35deg)
+        mask: url(../../assets/icons/send.svg) no-repeat 2px center
+        -webkit-mask: url(../../assets/icons/send.svg) no-repeat 2px center
+        mask-size: 100%
+        -webkit-mask-size: 100%
+
+.searchbar
+  position: absolute
+  top: 4.75rem
+  right: 5rem
+  width: 25rem
+  height: 4rem
+  max-width: 0px
+  border-radius: 1.2rem
+  background-color: var(--clr-search-background)
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: center
+  opacity: 0
+  pointer-events: none
+  transition: max-width .8s ease-in-out
+
+  &.active
+    opacity: 1
+    pointer-events: all
+    max-width: 100rem
+
+
+  input
+    width: calc( 100% - 1rem )
+    height: calc( 100% - 1rem )
+    border: none
+    outline: none
+    background-color: transparent
+    font-size: 1.2rem
+    font-weight: 500
+    color: var(--clr-search-text)
+
+    &:placeholder
+      color: var(--clr-search-text-placeholder)
+
+.options
+  position: absolute
+  width: 25rem
+  right: 1.5rem
+  top: 4.75rem
+  border-radius: 1.2rem
+  color: var(--clr-setting-text)
+  background-color: var(--clr-setting-background)
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px
+  max-height: 0px
+  overflow: hidden
+  transition: max-height .4s ease-in-out
+
+  &.active
+    max-height: 85vh
+
+  &__container
+    position: relative
+    max-height: 85vh
+    overflow-y: auto
+    overflow-x: hidden
+
+    &__section
+      padding: 1rem
+      border-bottom: 1px solid var(--clr-setting-border)
+
+      &:last-child
+        border-bottom: none
+
+      &__header
+        display: flex
+        flex-direction: row
+        align-items: center
+        justify-content: start
+        gap: 1rem
+        margin-bottom: 1rem
+
+        &.button
+          cursor: pointer
+          margin-bottom: 0
+
+        .icon
+          width: 2rem
+          height: 2rem
+          background-color: var(--clr-setting-icon)
+
+          &.help
+            mask: url(../../assets/icons/help.svg) no-repeat center
+            -webkit-mask: url(../../assets/icons/help.svg) no-repeat center
+            mask-size: 100%
+            -webkit-mask-size: 100%
+
+          &.settings
+            mask: url(../../assets/icons/settings.svg) no-repeat center
+            -webkit-mask: url(../../assets/icons/settings.svg) no-repeat center
+            mask-size: 100%
+            -webkit-mask-size: 100%
+
+          &.logout
+            mask: url(../../assets/icons/logout.svg) no-repeat center
+            -webkit-mask: url(../../assets/icons/logout.svg) no-repeat center
+            mask-size: 100%
+            -webkit-mask-size: 100%
+
+      h3
+        font-size: 1.2rem
+        font-weight: 700
+        color: var(--clr-text)
+
+      &__wrapper
+        display: flex
+        flex-direction: column
+        gap: 1.2rem
+
+        .setting
+          display: flex
+          flex-direction: row
+          align-items: center
+          justify-content: space-between
+          gap: 1rem
+
+          &__description
+            position: relative
+            width: 100%
+
+            h5
+              margin: 0
+              font-size: 1rem
+              color: var(--clr-text)
+
+            p
+              margin: 0
+              font-size: 1rem
+              color: var(--clr-text)
+
+            &__reset
+              position: absolute
+              top: 0
+              right: 0
+              color: var(--clr-setting-reset)
+              cursor: pointer
+              font-size: .9rem
+
+          .fontSize__container
+            width: 100%
+            display: flex
+            flex-direction: row
+            align-items: center
+            gap: .5rem
+
+            button
+              padding: 1rem 1.5rem
+              width: 100%
+              border-radius: 2rem
+              border: none
+              outline: none
+              cursor: pointer
+              background-color: var(--clr-setting-button-bg)
+              color: var(--clr-setting-button-bg-text)
+              font-weight: 500
+
+              &.active
+                background-color: var(--clr-setting-button-bg-active)
+                color: var(--clr-setting-button-bg-active-text)
+                font-weight: 700
+
+          .theme
+            &__container
+              width: fit-content
+              height: 100%
+              display: flex
+              flex-direction: row
+              align-items: center
+              justify-content: center
+
+              &__switch
+                display: inline-block
+                position: relative
+                width: 5.5rem
+                height: 2.5rem
+                border-radius: 1.25rem
+                overflow: hidden
+                cursor: pointer
+
+                input
+                  opacity: 0
+                  width: 0
+                  height: 0
+
+                &__slider
+                  position: absolute
+                  background-color: var(--clr-setting-grey)
+                  top: 0
+                  left: 0
+                  bottom: 0
+                  right: 0
+                  border-radius: 1.25rem
+                  transition: all 0.4s
+                  cursor: pointer
+
+                  &::before
+                    position: absolute
+                    content: ""
+                    background-color: var(--clr-setting-theme-sun)
+                    height: 2rem
+                    width: 2rem
+                    border-radius: 50%
+                    top: 50%
+                    left: 0.25rem
+                    transform: translateY(-50%)
+                    transition: all 0.4s
+
+                  &::after
+                    position: absolute
+                    content: ""
+                    background-color: var(--clr-setting-grey)
+                    height: 2rem
+                    width: 2rem
+                    border-radius: 50%
+                    top: 30%
+                    left: -2rem
+                    transform: translateY(-50%)
+                    transition: all 0.4s
+
+                input:checked ~ .theme__container__switch__slider::before
+                  transform: translate(150%, -50%)
+                  background-color: var(--clr-setting-theme-moon)
+
+                input:checked ~ .theme__container__switch__slider::after
+                  transform: translate(230%, -50%)
+
+          .deleteAccount__container
+            display: flex
+            flex-direction: column
+            align-items: center
+            gap: .5rem
+
+            button
+              padding: 1rem 1.5rem
+              width: 100%
+              border-radius: 2rem
+              border: none
+              outline: none
+              cursor: pointer
+              background-color: var(--clr-setting-delete)
+              color: var(--clr-setting-delete-text)
+              font-weight: 700
+
+          .primaryColor__container
+            display: flex
+            flex-direction: row
+            align-items: center
+            gap: .5rem
+
+            button
+              background-color: red
+              height: 2.5rem
+              width: 2.5rem
+              border-radius: 50%
+              border: none
+              outline: none
+              cursor: pointer
+              border: solid .25rem var(--clr-setting-grey)
+
+              div
+                display: none
+
+              &[data-color="green"]
+                background-color: var(--clr-setting-accent-green)
+
+              &[data-color="purple"]
+                background-color: var(--clr-setting-accent-purple)
+
+              &.active
+                div
+                  display: block
+                  width: 100%
+                  height: 100%
+                  background-color: var(--clr-setting-accent-icon-selected)
+                  mask: url(../../assets/icons/done.svg) no-repeat center
+                  -webkit-mask: url(../../assets/icons/done.svg) no-repeat center
+                  mask-size: 100%
+                  -webkit-mask-size: 100%
+
+          .wallpaper__container
+            width: 100%
+            display: flex
+            flex-direction: row
+            align-items: center
+            gap: .5rem
+
+            &__preview
+              position: relative
+              width: 100%
+              padding-bottom: 25%
+              border-radius: 1rem
+              background-color: var(--clr-primary)
+              background-size: cover
+              cursor: pointer
+
+              .icon
+                position: absolute
+                display: none
+                width: 100%
+                height: 100%
+
+              &.empty
+                .icon
+                  display: block
+                  background-color: var(--clr-setting-wallpaper-empty-icon)
+                  mask: url(../../assets/icons/wallpaper.svg) no-repeat center
+                  -webkit-mask: url(../../assets/icons/wallpaper.svg) no-repeat center
+                  mask-size: 60%
+                  -webkit-mask-size: 60%
+
+            &__upload
+              position: relative
+              width: 100%
+              padding-bottom: 25%
+              border-radius: 1rem
+
+              input
+                display: none
+
+              label
+                position: absolute
+                display: inline-block
+                width: 100%
+                height: 100%
+                cursor: pointer
+                border-radius: 1rem
+                background-color: var(--clr-setting-grey)
+
+                .wallpaper__upload__icon
+                  width: 100%
+                  height: 100%
+                  background-color: var(--clr-setting-icon)
+                  mask: url(../../assets/icons/upload.svg) no-repeat center
+                  -webkit-mask: url(../../assets/icons/upload.svg) no-repeat center
+                  mask-size: 40%
+                  -webkit-mask-size: 40%
+
+        .setting-column
+          align-items: start
+          flex-direction: column
+          gap: .6rem
+
+
+      
+
+#camera-modal
+  position: relative
+  margin: auto
+  padding: 2rem
+  border-radius: 3.3rem
+  max-width: 1080px
+  height: 640px
+  border: none
+  overflow: hidden
+  background-color: var(--clr-camera-background)
+
+  &::backdrop
+    background-color: rgba(0, 0, 0, 0.27)
+
+  .camera
+    width: 100%
+    height: 100%
+    display: flex
+    flex-direction: column
+    gap: 1rem
+    justify-content: space-between
+    align-items: center
+
+    &__close
+      position: absolute
+      width: 2.5rem
+      height: 2.5rem
+      top: .8rem
+      right: .8rem
+      cursor: pointer
+      background-image: url(../../assets/icons/close.svg)
+      background-size: cover
+      background-position: center
+      background-repeat: no-repeat
+      transition: transform 0.4s ease-in-out
+
+    &__preview
+      width: 100%
+      height: 100%
+      max-height: calc(100% - 5rem)
+      border-radius: 3.3rem
+
+    &__options
+      width: 100%
+      display: flex
+      flex-direction: row
+      justify-content: space-around
+      align-items: center
+
+      &__shutter
+        position: relative
+        width: 4rem
+        height: 4rem
+        border-radius: 2rem
+        background-color: transparent
+        outline: none
+        border: none
+
+        .circle
+          position: absolute
+          top: 12%
+          left: 12%
+          bottom: 12%
+          right: 12%
+          border-radius: 100%
+          background-color: var(--clr-camera-shutter)
+          opacity: 0.8
+          transition: all 0.25s
+
+        .ring
+          position: absolute
+          top: 0
+          left: 0
+          bottom: 0
+          right: 0
+          border-radius: 100%
+          border: 0.25rem solid var(--clr-camera-shutter)
+          opacity: 0.8
+          transition: all 0.25s
+
+        &:hover .circle
+          opacity: 1
+
+        &:active .ring
+          opacity: 1
+
+        &:active .circle
+          opacity: 0.6
+
+#image-modal
+  position: relative
+  margin: auto
+  padding: 3rem
+  border-radius: 3.3rem
+  border: none
+  overflow: hidden
+  outline: none
+  background-color: var(--clr-image-background)
+
+  &::backdrop
+    background-color: rgba(0, 0, 0, 0.27)
+
+  .image
+    position: relative
+    margin: 0
+
+    &__close
+      position: absolute
+      right: -2rem
+      top: -2rem
+      width: 2.5rem
+      height: 2.5rem
+      cursor: pointer
+      background-image: url(../../assets/icons/close.svg)
+      background-size: cover
+      background-position: center
+      background-repeat: no-repeat
+      transition: transform 0.4s ease-in-out
+
+    &__preview
+      height: 100%
+      border: none
+      outline: none
+      overflow: hidden

@@ -1,29 +1,113 @@
-@use '../abstracts/variables' as *
+@use '../abstract/variables' as *
+@use '../abstract/mixins' as m
 
 .message
-  background-color: $clr-primary
-  box-shadow: 0 0 2rem rgba(black, 0.075), 0rem 1rem 1rem -1rem rgba(black, 0.1)
-  padding: 12px
-  margin-bottom: 18px
-  max-width: 66%
+  position: relative
+  background-color: var(--clr-message-background)
   width: fit-content
-  border-radius: 1.125rem 1.125rem 1.125rem 0
+  max-width: 60%
+  padding: .8rem 1rem
+  border-radius: 1.55rem
+  margin-top: 1rem
+  display: flex
+  flex-direction: column
+  gap: .2rem
 
-  &__title
+  &.emoji_only
+    background-color: transparent
+
+    .message__header__sender
+      margin-bottom: 1.5rem
+
+    .message__body__text__content
+      font-size: 4rem
+
+    .message__body__text__time
+      bottom: -2rem
+
+  &__header
     display: flex
     flex-direction: row
     justify-content: space-between
-    align-items: flex-end
-    gap: 12px
+    align-items: end
+    gap: .4rem
 
-  &:last-child
-    margin-bottom: 0 
+    &__sender
+      font-size: .9rem
+      font-weight: 800
 
-.myself
-  background-color: $clr-highlight
-  margin: 0 0 0 auto
-  margin-bottom: 18px
-  border-radius: 1.125rem 1.125rem 0 1.125rem
+  &__body    
+    &__text
+      &__content
+        color: var(--clr-message-text)
+        font-size: 1.1rem
+        line-height: 1.5rem
+        overflow-wrap: break-all
+        // word-wrap: break-all
+        word-break: break-word
+        // hyphens: auto
 
-  .message__content
-    text-align: end
+      &__time
+        position: relative
+        bottom: -0.5rem
+        float: right
+        margin-left: .5rem
+        font-size: .8rem
+        font-weight: 400
+        line-height: 1.2rem
+        color: var(--clr-message-time)
+
+    &__image
+      width: 100%
+      border-radius: 1.6rem
+      margin-top: .5rem
+      margin-bottom: .5rem
+      cursor: pointer
+
+      &:not([src])
+        display: none
+
+  &.myself
+    background-color: var(--clr-primary)
+    color: var(--clr-message-myself-text)
+    border-bottom-right-radius: .4rem
+    margin-left: auto
+    padding-right: 1rem
+
+    .message__body__text__content
+      color: var(--clr-message-myself-text)
+
+    .message__body__text__time
+      color: var(--clr-message-myself-time)
+
+    &.emoji_only
+      background-color: transparent
+
+    .message__header
+      display: none
+
+    &.same_sender
+      border-bottom-right-radius: .4rem
+      border-top-right-radius: .4rem
+      margin-top: .2rem
+
+  &:not(.myself)
+    border-bottom-left-radius: .4rem
+    padding-left: 1rem
+  
+    &.same_sender
+      border-bottom-left-radius: .4rem
+      border-top-left-radius: .4rem
+      margin-top: .2rem
+
+  &.same_sender
+    .message__header
+      display: none
+
+@include m.mq('medium')
+  .message
+    max-width: 75%
+
+@include m.mq('small')
+  .message
+    max-width: 90%

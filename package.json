@@ -6,7 +6,8 @@
   "author": "Christoph Merck",
   "type": "module",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.development.cjs --client-logging error",
+    "start": "webpack-dev-server --host 0.0.0.0 --config webpack.development.cjs --client-logging error",
+    "start:ssl": "webpack-dev-server --host 0.0.0.0 --https --watch --config webpack.development.cjs --client-logging error",
     "build": "webpack --config webpack.production.cjs"
   },
   "devDependencies": {
@@ -20,6 +21,7 @@
     "html-webpack-plugin": "5.5.0",
     "mini-css-extract-plugin": "2.7.5",
     "prettier": "2.8.7",
+    "resolve-url-loader": "^5.0.0",
     "sass": "^1.61.0",
     "sass-loader": "13.2.2",
     "ts-loader": "9.4.2",

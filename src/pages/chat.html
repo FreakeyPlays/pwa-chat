@@ -1,53 +1,158 @@
-<div class="chat" data-state="chat">
-  <div class="header">
-    <a id="header__back" class="header__back">
-      <img src="../assets/icons/logout.svg" />
-    </a>
-    <div class="header__container">
-      <h1 class="header__container__title">Chat</h1>
-      <div class="menuBtn" onclick="this.classList.toggle('active')">
-        <span></span>
-        <span></span>
-        <span></span>
+<div class="chat">
+   <div class="chat__app-bar">
+      <div class="chat__app-bar__container">
+         <h1 class="title">Chatroom</h1>
+         <div id="search" class="search">
+            <div class="icon"></div>
+         </div>
+         <div id="searchbar" class="searchbar">
+            <input type="text" placeholder="@UserID, !img, ...">
+         </div>
       </div>
-      <div class="chat__header__options">
-        <div class="chat__header__options__element">
-          <h3 class="element__title">Theme</h3>
-          <div class="element__content theme">
-            <button class="current">Light</button>
-            <button>Dark</button>
-          </div>
-        </div>
-        <div class="chat__header__options__element">
-          <h3 class="element__title">Font Size</h3>
-          <div class="element__content fontsize">
-            <input
-              type="range"
-              name="fontsize"
-              id="fontsize"
-              min="50"
-              max="150"
-              value="100"
-            />
-          </div>
-        </div>
-        <div class="chat__header__options__element">
-          <div class="element__content">
-            <h3 class="element__title" id="deregister">Deregister</h3>
-          </div>
-        </div>
+      <div id="options__toggle" class="chat__app-bar__settings">
+         <div class="icon"></div>
       </div>
-    </div>
-  </div>
-  <div id="chat__window" class="chat__window"></div>
-  <form id="chat__input" class="chat__input">
-    <textarea
-      placeholder="Type a Message..."
-      class="chat__input__text"
-      rows="1"
-      type="text"
-      name="text"
-    ></textarea>
-    <button class="chat__input__send" type="submit">Send</button>
-  </form>
+      <div id="options" class="options">
+   <div class="options__container">
+      <div class="options__container__section">
+         <div id="settings" class="options__container__section__header">
+            <div class="icon settings"></div>
+            <h3 class="title">Settings</h3>
+         </div>
+         <div class="options__container__section__wrapper">
+            <div id="fontSize" class="fontSize setting setting-column">
+               <div class="fontSize__description setting__description">
+                  <h5>Font Size</h5>
+                  <p>Set the Font Size to your Preference</p>
+               </div>
+               <div id="setting-font-container" class="fontSize__container setting__container">
+                  <button data-font-size="s">Small</button>
+                  <button data-font-size="m" class="active">Medium</button>
+                  <button data-font-size="l">Large</button>
+               </div>
+            </div>
+            <div class="theme setting" id="theme">
+               <div class="theme__description setting__description">
+                  <h5>Theme</h5>
+                  <p>Toggle between Light and Dark Mode</p>
+               </div>
+               <div class="theme__container setting__container">
+                  <label id="setting-theme-toggle" class="theme__container__switch">
+                     <input type="checkbox">
+                     <div class="theme__container__switch__slider"></div>
+                     <div class="theme__container__switch__bg"></div>
+                  </label>
+               </div>
+            </div>
+            <div class="primaryColor setting" id="primaryColor">
+               <div class="primaryColor__description setting__description">
+                  <h5>Highlight Color</h5>
+                  <p>Pick an Highlight Color</p>
+               </div>
+               <div id="setting-accent-container" class="primaryColor__container setting__container">
+                  <button data-color="green" class="primaryColor__container__option active">
+                     <div></div>
+                  </button>
+                  <button data-color="purple" class="primaryColor__container__option">
+                     <div></div>
+                  </button>
+               </div>
+            </div>
+            <div class="wallpaper setting setting-column" id="wallpaper">
+               <div class="wallpaper__description setting__description">
+                  <h5>Wallpaper</h5>
+                  <p>Change the wallpaper of the chat</p>
+                  <span id="wallpaper__reset" class="setting__description__reset">Reset</span>
+               </div>
+               <div id="wallpaper__container" class="wallpaper__container">
+                  <div data-wallpaper-id="3" class="wallpaper__container__preview empty">
+                     <div class="icon"></div>
+                  </div>
+                  <div data-wallpaper-id="2" class="wallpaper__container__preview empty">
+                     <div class="icon"></div>
+                  </div>
+                  <div data-wallpaper-id="1" class="wallpaper__container__preview empty">
+                     <div class="icon"></div>
+                  </div>
+                  <div class="wallpaper__container__upload">
+                     <input type="file" name="wallpaperUpload" id="wallpaper__upload" accept="image/png, image/jpeg">
+                     <label for="wallpaper__upload">
+                        <div class="wallpaper__upload__icon"></div>
+                     </label>
+                  </div>
+               </div>
+            </div>
+            <div class="deleteAccount setting" id="deleteAccount">
+               <div class="deleteAccount__description setting__description">
+                  <h5>Delete Account</h5>
+                  <p>Delete your account</p>
+               </div>
+               <div class="deleteAccount__container setting__container">
+                  <button id="deregister">Delete</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="options__container__section">
+         <div id="help" class="options__container__section__header button">
+            <div class="icon help"></div>
+            <h3 class="title">Help</h3>
+         </div>
+      </div>
+      <div class="options__container__section">
+         <div id="logout" class="options__container__section__header button">
+            <div class="icon logout"></div>
+            <h3 class="title">Log out</h3>
+         </div>
+      </div>
+   </div>
 </div>
+   </div>
+   <div id="chat__window" class="chat__window">
+   </div>
+   <div id="chat__preview" class="chat__preview">
+      <div class="chat_preview_container">
+         <div class="chat__preview__container__remove"></div>
+         <img class="chat__preview__container__image" alt="preview Current Image">
+      </div>
+   </div>
+   <div id="chat__compose" class="chat__compose">
+      <div class="compose__container">
+         <div id="camera__toggle" class="compose__container__camera">
+            <div class="compose__container__camera__icon"></div>
+         </div>
+         <textarea
+            rows="1"
+            type="text"
+            maxlength="2048"
+            placeholder="Type a Message..."
+            id="compose__container__input"
+            class="compose__container__input"
+            ></textarea>
+         <div id="microphone__toggle" class="compose__container__microphone">
+            <div class="compose__container__microphone__icon"></div>
+         </div>
+      </div>
+      <button class="compose__send">
+         <div class="compose__send__icon"></div>
+      </button>
+   </div>
+</div>
+<dialog id="camera-modal">
+   <div class="camera">
+      <div class="camera__close"></div>
+      <video autoplay class="camera__preview"></video>
+      <div class="camera__options">
+         <button class="camera__options__shutter">
+            <div class="circle"></div>
+            <div class="ring"></div>
+         </button>
+      </div>
+   </div>
+</dialog>
+<dialog id="image-modal">
+   <div class="image">
+      <div class="image__close"></div>
+      <img class="image__preview"></img>
+   </div>
+</dialog>

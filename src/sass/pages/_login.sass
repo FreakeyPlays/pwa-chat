@@ -1,0 +1,294 @@
+@use '../abstract/mixins' as m
+@import '../abstract/variables'
+  
+.login
+  width: 100%
+  height: 100vh
+  overflow: hidden
+  background-color: var(--clr-primary-l-30)
+  padding: 2rem
+  display: flex
+  justify-content: center
+  align-items: center
+
+  &__container
+    position: relative
+    width: 100%
+    max-width: 1080px
+    min-height: 640px
+    background-color: var(--clr-background)
+    border-radius: 3.4rem
+    box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27)
+
+    &__box
+      position: absolute
+      width: calc(100% - 4.2rem)
+      height: calc(100% - 4.2rem)
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+
+    &.signup-mode 
+      .forms
+        left: 55%
+
+      .intro
+        left: 0
+
+      .forms__signin
+        opacity: 0
+        pointer-events: none
+
+      .forms__signup
+        opacity: 1
+        pointer-events: all
+
+
+.forms
+  position: absolute
+  height: 100%
+  width: 45%
+  top: 0
+  left: 0
+  display: grid
+  grid-template-columns: 1fr
+  grid-template-rows: 1fr
+  transition: .8s ease-in-out
+
+  &__signin,
+  &__signup
+    max-width: 320px
+    width: 100%
+    height: 100%
+    margin: 0 auto
+    display: flex
+    flex-direction: column
+    justify-content: space-evenly
+    grid-column: 1 / 2
+    grid-row: 1 / 2
+    transition: opacity .02s .4s
+
+    &__heading
+      h2
+        font-size: 3.2rem
+
+      h6
+        font-size: 1.6rem
+        color: var(--clr-text-light)
+        font-weight: 400
+        display: inline
+
+      .forms__toggle
+        color: var(--clr-primary)
+        text-decoration: none
+        font-size: 1.2rem
+        font-weight: 600
+
+        &:hover
+          color: var(--clr-primary-hover)
+
+  &__signup
+    opacity: 0
+    pointer-events: none
+
+.intro
+  position: absolute
+  height: 100%
+  width: 55%
+  top: 0
+  left: 45%
+  background-color: var(--clr-primary-l-25)
+  border-radius: 2rem
+  transition: 0.8s ease-in-out
+  padding: 1.8rem
+  display: flex
+  flex-direction: column
+  justify-content: space-evenly
+  align-items: center
+
+  &__message
+    text-align: center
+
+    h1
+      font-size: 3.8rem
+      font-weight: 900
+      color: var(--clr-text)
+
+    h4
+      font-size: 1.4rem
+      font-weight: 400
+      color: var(--clr-text-light)
+
+  &__image
+    width: 80%
+    height: 80%
+    background-image: url(../../assets/icons/hero_image.svg)
+    background-size: cover
+    background-position: center
+    background-repeat: no-repeat
+    
+
+.form-content
+  &__input-wrap
+    position: relative
+    height: 37px
+    margin-bottom: 1.4rem
+    display: flex
+    align-items: center
+
+    &__input-field
+      position: absolute
+      width: 100%
+      height: 100%
+      border: none
+      outline: none
+      background-color: transparent
+      border-bottom: 2px solid var(--clr-slightly-visible)
+      padding: 0
+      font-size: 1.2rem
+      color: var(--clr-text)
+      transition: .3s
+
+      &:focus
+        border-bottom: 2px solid var(--clr-primary)
+
+      &:focus ~ .form-content__input-wrap__input-label
+        color: var(--clr-primary)
+
+      &:focus ~ .form-content__input-wrap__input-label,
+      &:not(:placeholder-shown) ~ .form-content__input-wrap__input-label
+        transform: translateY(-180%)
+        font-size: .9rem,
+
+    &__input-label
+      position: absolute
+      left: 0
+      top: 50%
+      transform: translateY(-50%)
+      font-size: 1.2rem
+      color: var(--clr-slightly-visible)
+      pointer-events: none
+      transition: .4s
+  
+    .form-content__password-toggle
+      position: absolute
+      width: 30px
+      height: 30px
+      right: 0
+      top: 50%
+      transform: translateY(-50%)
+      cursor: pointer
+      background-image: url("../../assets/icons/password_show.svg")
+      background-size: cover
+      background-position: center
+      background-repeat: no-repeat
+
+      &.show-password
+        background-image: url("../../assets/icons/password_hide.svg")
+
+    &__checkbox
+      width: 1.2rem
+      height: 1.2rem
+      accent-color: var(--clr-text-light)
+      margin-right: .6rem
+      border: 1px solid var(--clr-slightly-visible)
+      cursor: pointer
+
+  &__submit-btn
+    display: inline-block
+    width: 100%
+    height: 43px
+    background-color: var(--clr-text-light)
+    color: var(--clr-background)
+    border: none
+    outline: none
+    cursor: pointer
+    border-radius: 21.5px
+    font-size: 1.2rem
+    margin-bottom: 2rem
+    transition: .3s
+
+    &:hover
+      background-color: var(--clr-primary)
+      
+@include m.mq("medium")
+  .login__container
+    height: auto
+    max-width: 550px
+    overflow: hidden
+
+    &__box
+      position: static
+      transform: none
+      width: revert
+      height: revert
+      padding: 2rem
+      display: flex
+      flex-direction: column-reverse
+
+    .forms
+      position: revert
+      width: 100%
+      height: auto
+
+      &__signin,
+      &__signup
+        max-width: revert
+        padding: 1.5rem 2.5rem 2rem
+        transition: transform 0.8s ease-in-out, opacity 0.45s linear
+
+        &__heading
+          margin-bottom: 1rem
+
+      &__signup
+        transform: translateX(100%)
+
+    .intro
+      position: revert
+      width: 100%
+      height: auto
+      padding: 2rem 1rem
+
+      &__image
+        display: none
+
+    &.signup-mode
+      .forms__signin
+        transform: translateX(-100%)
+
+      .forms__signup
+        transform: translateX(0%)
+
+@include m.mq("small")
+  .login
+    padding: 1.2rem
+
+    &__container
+      border-radius: 2rem
+
+      &__box
+        padding: 1rem
+
+    &__container
+      .intro
+        padding: 1.5rem 1rem
+
+        h1
+          font-size: 3rem
+
+        h4
+          font-size: 1.2rem
+
+  .forms__signin,
+  .forms__signup
+    padding: 1rem 2rem 1.5rem
+
+    &__heading
+      h2
+        font-size: 2.6em
+
+      h6
+        font-size: 1rem
+
+      .forms__toggle
+        font-size: 1rem

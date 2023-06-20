@@ -1,50 +1,157 @@
-<div class="test" data-state="login">
-  <form id="form" class="form" action="/chat">
-    <h3 class="form__title">Sign in</h3>
+<div class="login">
+  <div id="login__container" class="login__container">
+    <div class="login__container__box">
+      <div class="forms">
+        <form id="form__signin" class="forms__signin">
+          <div class="forms__signin__heading">
+            <h2>Sign In</h2>
+            <h6>Need an account?</h6>
+            <a href="#" class="forms__toggle">Sign up</a>
+          </div>
 
-    <div class="form__group" data-form-field="userid">
-      <input
-        type="text"
-        id="userid"
-        name="userid"
-        class="form__group__input"
-        autocomplete="off"
-        placeholder=" "
-      />
-      <label for="userid" class="form__group__label">Username</label>
-      <div class="error-message form__group__error"></div>
-    </div>
+          <div class="form-content">
+            <div class="form-content__input-wrap">
+              <input
+                type="text"
+                minlength="8"
+                maxlength="8"
+                autocomplete="off"
+                pattern="^[a-zA-Z]{6}[0-9]{2}$"
+                placeholder=" "
+                class="form-content__input-wrap__input-field"
+                name="userid"
+                required
+              />
+              <label class="form-content__input-wrap__input-label"
+                >HSE Username</label
+              >
+            </div>
+            <div class="form-content__input-wrap">
+              <input
+                type="password"
+                autocomplete="off"
+                placeholder=" "
+                class="form-content__input-wrap__input-field"
+                name="password"
+                required
+              />
+              <div class="form-content__password-toggle"></div>
+              <label class="form-content__input-wrap__input-label"
+                >Password</label
+              >
+            </div>
 
-    <div class="form__group" data-form-field="password">
-      <input
-        type="password"
-        id="password"
-        name="password"
-        class="form__group__input"
-        autocomplete="off"
-        placeholder=" "
-      />
-      <div class="form__group__icon"></div>
-      <label for="password" class="form__group__label">Password</label>
-      <div class="error-message form__group__error"></div>
-    </div>
+            <div class="form-content__input-wrap">
+              <input
+                type="checkbox"
+                class="form-content__input-wrap__checkbox"
+                id="stayloggedin"
+                name="stayloggedin"
+              />
+              <label for="stayloggedin">Stay logged in?</label>
+            </div>
 
-    <div class="form__end">
-      <a class="form__end__button" href="/register" onclick="route()">
-        Sign up
-      </a>
-      <button class="form__end__button" type="submit">Sign in</button>
-    </div>
+            <input
+              type="submit"
+              value="Sign In"
+              class="form-content__submit-btn"
+            />
+          </div>
+        </form>
+        <form id="form__signup" class="forms__signup">
+          <div class="forms__signup__heading">
+            <h2>Sign Up</h2>
+            <h6>Already have an account?</h6>
+            <a href="#" class="forms__toggle">Sign in</a>
+          </div>
 
-    <div class="" data-form-field="stayLoggedIn">
-      <input
-        type="checkbox"
-        id="stayLoggedIn"
-        class="stayLoggedIn"
-        autocomplete="off"
-        placeholder=" "
-      />
-      <label for="stayLoggedIn">Stay Logged in</label>
+          <div class="form-content">
+            <div class="form-content__input-wrap">
+              <input
+                type="text"
+                minlength="8"
+                maxlength="8"
+                autocomplete="off"
+                pattern="^[a-zA-Z]{6}[0-9]{2}$"
+                placeholder=" "
+                name="userid"
+                class="form-content__input-wrap__input-field"
+                required
+              />
+              <label class="form-content__input-wrap__input-label"
+                >HSE Username</label
+              >
+            </div>
+            <div class="form-content__input-wrap">
+              <input
+                type="password"
+                autocomplete="off"
+                placeholder=" "
+                name="password"
+                class="form-content__input-wrap__input-field"
+                required
+              />
+              <div class="form-content__password-toggle"></div>
+              <label class="form-content__input-wrap__input-label"
+                >Password</label
+              >
+            </div>
+            <div class="form-content__input-wrap">
+              <input
+                type="password"
+                autocomplete="off"
+                placeholder=" "
+                name="confirmpassword"
+                class="form-content__input-wrap__input-field"
+                required
+              />
+              <div class="form-content__password-toggle"></div>
+              <label class="form-content__input-wrap__input-label"
+                >Confirm Password</label
+              >
+            </div>
+            <div class="form-content__input-wrap">
+              <input
+                type="text"
+                autocomplete="off"
+                placeholder=" "
+                name="nickname"
+                class="form-content__input-wrap__input-field"
+                required
+              />
+              <label class="form-content__input-wrap__input-label"
+                >Nickname</label
+              >
+            </div>
+            <div class="form-content__input-wrap">
+              <input
+                type="text"
+                autocomplete="off"
+                placeholder=" "
+                name="fullname"
+                class="form-content__input-wrap__input-field"
+                required
+              />
+              <label class="form-content__input-wrap__input-label">
+                Full Name
+              </label>
+            </div>
+
+            <input
+              type="submit"
+              value="Sign Up"
+              class="form-content__submit-btn"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="intro">
+        <div class="intro__message">
+          <h1>PWA-Chat</h1>
+          <h4>Chat with your Friends at HS Esslingen.</h4>
+        </div>
+        <div class="intro__image"></div>
+      </div>
     </div>
-  </form>
+  </div>
 </div>

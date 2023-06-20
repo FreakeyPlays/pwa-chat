@@ -1,24 +1,52 @@
-import './sass/main.sass';
-import { App } from './ts/app';
+import { Http } from './ts/_service/http/http';
+import { Auth } from './ts/auth/auth';
+import { Logger } from './ts/logger';
+import { LoginPage } from './ts/pages/login.page';
+import { Router } from './ts/router/router';
 
-interface SyncManager {
-  getTags(): Promise<string[]>;
-  register(tag: string): Promise<void>;
-}
+import './sass/main.sass';
+import { IndexedDBManager } from './ts/_service/idb/idb';
+import { ChatPage } from './ts/pages/chat.page';
 
 declare global {
-  interface ServiceWorkerRegistration {
-    readonly sync: SyncManager;
+  interface Window {
+    webkitSpeechRecognition: any;
   }
 }
 
-if (navigator.serviceWorker) {
-  navigator.serviceWorker.register('./sw.js').then(async () => {
-    console.log(
-      '%c[ServiceWorker] Registered',
-      'background: #F7C8E0; color: #000'
-    );
-  });
+window.addEventListener('load', () => {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then(() => {
+        console.log('[ServiceWorker] registered');
+      })
+      .catch(err => {
+        console.log('[ServiceWorker] registration failed');
+        console.log(err);
+      });
+  }
+});
+class PwaChat {
+  constructor() {
+    Logger.getInstance().enableLogging();
+    IndexedDBManager.getInstance();
+    Auth.getInstance();
+    Router.getInstance();
+    LoginPage.getInstance();
+    ChatPage.getInstance();
+    Http.getInstance();
+
+    this.init();
+  }
+
+  private init() {
+    Router.getInstance().init();
+  }
 }
 
-const _app = new App();
+IndexedDBManager.getInstance()
+  .init()
+  .then(() => {
+    new PwaChat();
+  });

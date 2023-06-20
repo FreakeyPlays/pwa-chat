@@ -1,0 +1,44 @@
+{
+  "short_name": "PWA-Chat",
+  "name": "PWA-Chat",
+  "description": "PWA-Chat is a simple chat application built with PWA technology to give the look and feel of a native application.",
+  "icons": [
+    {
+      "src": "assets/images/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/images/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#2e2e2e",
+  "background_color": "#ffffff",
+  "orientation": "portrait",
+  "screenshots": [
+    {
+      "src": "assets/images/screenshots/signin.png",
+      "type": "image/png",
+      "sizes": "462x945"
+    },
+    {
+      "src": "assets/images/screenshots/light.png",
+      "type": "image/png",
+      "sizes": "462x945"
+    },
+    {
+      "src": "assets/images/screenshots/dark.png",
+      "type": "image/png",
+      "sizes": "462x945"
+    },
+    {
+      "src": "assets/images/screenshots/setting.png",
+      "type": "image/png",
+      "sizes": "462x945"
+    }
+  ]
+}
