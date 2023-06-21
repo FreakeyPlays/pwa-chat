@@ -1,7 +1,7 @@
 const CACHE_VERSION = {
   STATIC: '2',
   DYNAMIC: '2',
-  MINOR: '164'
+  MINOR: '165'
 };
 
 const CACHE_LIST = {
