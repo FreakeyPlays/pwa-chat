@@ -2,9 +2,7 @@ export class Logger {
   private static instance: Logger;
   private oldConsoleLog: any = null;
 
-  private constructor() {
-    console.log('[Logger] - instance created');
-  }
+  private constructor() {}
 
   static getInstance() {
     if (!Logger.instance) {
@@ -18,10 +16,14 @@ export class Logger {
       return;
     }
 
+    console.log('[Logger] - logging enabled');
+
     window['console']['log'] = this.oldConsoleLog;
   }
 
   public disableLogging() {
+    console.log('[Logger] - logging disabled');
+
     this.oldConsoleLog = console.log;
 
     window['console']['log'] = function () {};

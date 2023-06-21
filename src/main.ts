@@ -14,6 +14,8 @@ declare global {
   }
 }
 
+Logger.getInstance().disableLogging();
+
 window.addEventListener('load', () => {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
@@ -29,7 +31,6 @@ window.addEventListener('load', () => {
 });
 class PwaChat {
   constructor() {
-    Logger.getInstance().enableLogging();
     IndexedDBManager.getInstance();
     Auth.getInstance();
     Router.getInstance();
