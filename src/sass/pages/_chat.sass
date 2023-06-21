@@ -710,7 +710,8 @@
 
 #image-modal
   position: relative
-  width: calc( 100% - 6rem )
+  height: calc( 100% - 6rem )
+  max-width: calc(100% - 6rem)
   margin: auto
   padding: 3rem
   border-radius: 3.3rem
@@ -725,6 +726,8 @@
   .image
     position: relative
     margin: 0
+    width: 100%
+    height: 100%
 
     &__close
       position: absolute
@@ -741,7 +744,7 @@
 
     &__preview
       height: 100%
-      width: 100%
       border: none
       outline: none
       overflow: hidden
+    
