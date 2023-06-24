@@ -4,7 +4,7 @@ export const CONFIG = {
   COOKIE_EXPIRATION_DAYS: 30,
   COOKIE_TITLE: 'user',
   BASE_URL_API: 'https://www2.hs-esslingen.de/~melcher/map/chat/api/',
-  HELP_URL: 'https://github.com/FreakeyPlays/v2/blob/main/doc/help.md#help'
+  HELP_URL: 'https://github.com/FreakeyPlays/pwa-chat/blob/main/doc/help.md#help'
 };
 
 export const ROUTES: { [key: string]: Route } = {
