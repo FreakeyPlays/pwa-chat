@@ -1,7 +1,7 @@
 const CACHE_VERSION = {
-  STATIC: '2',
-  DYNAMIC: '2',
-  MINOR: '166'
+  STATIC: '3',
+  DYNAMIC: '3',
+  MINOR: '0'
 };
 
 const CACHE_LIST = {
@@ -23,7 +23,6 @@ const STATIC_RESOURCE_LIST = [
 self.addEventListener('install', (e: any) => {
   console.log(
     '%c[ServiceWorker] installEvent fired\n',
-    e,
     'background: #F7C8E0; color: #000'
   );
 
@@ -40,7 +39,6 @@ self.addEventListener('install', (e: any) => {
 self.addEventListener('activate', (e: any) => {
   console.log(
     '%c[ServiceWorker] activateEvent fired\n',
-    e,
     'background: #F7C8E0; color: #000'
   );
 
@@ -62,7 +60,6 @@ self.addEventListener('activate', (e: any) => {
 self.addEventListener('fetch', (e: any) => {
   console.log(
     '%c[ServiceWorker] fetchEvent fired\n',
-    e,
     'background: #F7C8E0; color: #000'
   );
 
