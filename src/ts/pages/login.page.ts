@@ -1,6 +1,6 @@
 import { LoginUser, RegisterUser } from '../_interface';
 import { Auth } from '../auth/auth';
-import { ROUTES } from '../common';
+import { ROUTES, VALIDATION_PARAMETER } from '../common';
 import { Router } from '../router/router';
 
 export class LoginPage {
@@ -52,10 +52,10 @@ export class LoginPage {
     const { user, stayLoggedIn } = this.getSignInFormData(
       e.target as HTMLFormElement
     );
-    //TODO: validate
+
     const errors: boolean = this.validateSignIn(user);
 
-    if (!errors) return;
+    if (errors) return;
 
     const success = await this.auth.login(user, stayLoggedIn);
 
@@ -85,8 +85,21 @@ export class LoginPage {
 
   private validateSignIn(data: LoginUser): boolean {
     let mistakes = 0;
-    // code
-    return true || mistakes > 0;
+
+    for (const [key, value] of Object.entries(data)) {
+      const validationRules = VALIDATION_PARAMETER[key as keyof typeof data];
+
+      if (!validationRules) continue;
+
+      for (const rule of validationRules) {
+        if (!rule.validate(value)) {
+          mistakes++;
+          console.log(rule.errorMessage);
+        }
+      }
+    }
+
+    return mistakes > 0;
   }
 
   private setSignUpEventlistener() {
@@ -102,10 +115,10 @@ export class LoginPage {
     const { user, passwordCheck } = this.getSignUpFormData(
       e.target as HTMLFormElement
     );
-    //TODO: validate
+
     const error = this.validateSignUp(user, passwordCheck);
 
-    if (!error) return;
+    if (error) return;
 
     const success = await this.auth.register(user);
 
@@ -136,8 +149,27 @@ export class LoginPage {
   }
 
   private validateSignUp(user: RegisterUser, passwordCheck: string): boolean {
-    return true;
-    // code
+    let mistakes = 0;
+
+    if (user.password !== passwordCheck) {
+      mistakes++;
+      console.log('Passwords do not match');
+    }
+
+    for (const [key, value] of Object.entries(user)) {
+      const validationRules = VALIDATION_PARAMETER[key as keyof typeof user];
+
+      if (!validationRules) continue;
+
+      for (const rule of validationRules) {
+        if (!rule.validate(value)) {
+          mistakes++;
+          console.log(rule.errorMessage);
+        }
+      }
+    }
+
+    return mistakes > 0;
   }
 
   private setPasswordToggles() {

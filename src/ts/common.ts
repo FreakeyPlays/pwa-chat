@@ -4,7 +4,8 @@ export const CONFIG = {
   COOKIE_EXPIRATION_DAYS: 30,
   COOKIE_TITLE: 'user',
   BASE_URL_API: 'https://www2.hs-esslingen.de/~melcher/map/chat/api/',
-  HELP_URL: 'https://github.com/FreakeyPlays/pwa-chat/blob/main/doc/help.md#help'
+  HELP_URL:
+    'https://github.com/FreakeyPlays/pwa-chat/blob/main/doc/help.md#help'
 };
 
 export const ROUTES: { [key: string]: Route } = {
@@ -28,11 +29,11 @@ export const ROUTES: { [key: string]: Route } = {
   }
 };
 
-export const LOGIN_CRITERIA = {
+export const VALIDATION_PARAMETER = {
   userid: [
     {
       validate(data: string): boolean {
-        return data.length > 0;
+        return data.trim().length > 0;
       },
       errorMessage: "User ID can't be empty"
     },
@@ -40,7 +41,7 @@ export const LOGIN_CRITERIA = {
       validate(data: string): boolean {
         return data.match(/^[a-zA-Z]{6}[0-9]{2}$/) !== null;
       },
-      errorMessage: 'User ID must be HSE Username'
+      errorMessage: 'User ID must match HSE Username'
     }
   ],
   password: [
@@ -49,6 +50,22 @@ export const LOGIN_CRITERIA = {
         return data.length > 0;
       },
       errorMessage: "Password can't be empty"
+    }
+  ],
+  nickname: [
+    {
+      validate(data: string): boolean {
+        return data.trim().length > 0;
+      },
+      errorMessage: "Nickname can't be empty"
+    }
+  ],
+  fullname: [
+    {
+      validate(data: string): boolean {
+        return data.trim().length > 0;
+      },
+      errorMessage: "Full Name can't be empty"
     }
   ]
 };
