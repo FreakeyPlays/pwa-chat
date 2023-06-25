@@ -22,7 +22,7 @@ const STATIC_RESOURCE_LIST = [
 
 self.addEventListener('install', (e: any) => {
   console.log(
-    '%c[ServiceWorker] installEvent fired\n',
+    '%c[ServiceWorker] installEvent fired',
     'background: #F7C8E0; color: #000'
   );
 
@@ -38,7 +38,7 @@ self.addEventListener('install', (e: any) => {
 
 self.addEventListener('activate', (e: any) => {
   console.log(
-    '%c[ServiceWorker] activateEvent fired\n',
+    '%c[ServiceWorker] activateEvent fired',
     'background: #F7C8E0; color: #000'
   );
 
@@ -59,7 +59,7 @@ self.addEventListener('activate', (e: any) => {
 
 self.addEventListener('fetch', (e: any) => {
   console.log(
-    '%c[ServiceWorker] fetchEvent fired\n',
+    '%c[ServiceWorker] fetchEvent fired',
     'background: #F7C8E0; color: #000'
   );
 
