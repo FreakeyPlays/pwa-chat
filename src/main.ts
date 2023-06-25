@@ -14,7 +14,7 @@ declare global {
   }
 }
 
-Logger.getInstance().disableLogging();
+Logger.getInstance().enableLogging();
 
 window.addEventListener('load', () => {
   if ('serviceWorker' in navigator) {
